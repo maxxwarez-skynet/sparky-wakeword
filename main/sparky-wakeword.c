@@ -100,6 +100,8 @@ void app_main(void)
                     y
                 );
 
+                sparky_display_touch_marker(x, y);
+
             } else if (previous_pressed) {
 
                 ESP_LOGI(

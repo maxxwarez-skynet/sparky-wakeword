@@ -242,3 +242,79 @@ esp_err_t sparky_display_test(void)
 
     return ESP_OK;
 }
+
+esp_err_t sparky_display_touch_marker(uint16_t x, uint16_t y)
+{
+    if (s_panel == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (x >= SPARKY_LCD_H_RES || y >= SPARKY_LCD_V_RES) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    /*
+     * Draw a small 5x5 white square centered on the touch point.
+     */
+    const int radius = 2;
+
+    int x0 = (int)x - radius;
+    int y0 = (int)y - radius;
+    int x1 = (int)x + radius + 1;
+    int y1 = (int)y + radius + 1;
+
+    if (x0 < 0) {
+        x0 = 0;
+    }
+
+    if (y0 < 0) {
+        y0 = 0;
+    }
+
+    if (x1 > SPARKY_LCD_H_RES) {
+        x1 = SPARKY_LCD_H_RES;
+    }
+
+    if (y1 > SPARKY_LCD_V_RES) {
+        y1 = SPARKY_LCD_V_RES;
+    }
+
+    const int width = x1 - x0;
+
+    uint8_t *buffer = heap_caps_malloc(
+        width * 2,
+        MALLOC_CAP_DMA
+    );
+
+    if (buffer == NULL) {
+        return ESP_ERR_NO_MEM;
+    }
+
+    /*
+     * RGB565 white = 0xFFFF
+     */
+    for (int i = 0; i < width; i++) {
+        buffer[i * 2 + 0] = 0xFF;
+        buffer[i * 2 + 1] = 0xFF;
+    }
+
+    for (int row = y0; row < y1; row++) {
+        esp_err_t ret = esp_lcd_panel_draw_bitmap(
+            s_panel,
+            x0,
+            row,
+            x1,
+            row + 1,
+            buffer
+        );
+
+        if (ret != ESP_OK) {
+            free(buffer);
+            return ret;
+        }
+    }
+
+    free(buffer);
+
+    return ESP_OK;
+}
