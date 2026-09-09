@@ -1,5 +1,6 @@
 #include "touch.h"
 #include "board.h"
+#include "i2c_bus.h"
 
 #include "esp_log.h"
 
@@ -117,7 +118,7 @@ esp_err_t sparky_touch_init(void)
 
 
     /*
-     * Create I²C master bus.
+     * Get the shared I2C master bus.
      */
     ESP_LOGI(
         TAG,
@@ -126,37 +127,23 @@ esp_err_t sparky_touch_init(void)
         SPARKY_TOUCH_SCL_GPIO
     );
 
-    i2c_master_bus_config_t bus_config = {
-        .i2c_port = I2C_NUM_0,
-
-        .sda_io_num = SPARKY_TOUCH_SDA_GPIO,
-        .scl_io_num = SPARKY_TOUCH_SCL_GPIO,
-
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-
-        .glitch_ignore_cnt = 7,
-
-        .flags.enable_internal_pullup = true,
-    };
-
-    ret = i2c_new_master_bus(
-        &bus_config,
-        &s_i2c_bus
-    );
+    ret = sparky_i2c_init();
 
     if (ret != ESP_OK) {
         ESP_LOGE(
             TAG,
-            "I2C bus initialization failed: %s",
+            "Shared I2C bus initialization failed: %s",
             esp_err_to_name(ret)
         );
 
         return ret;
     }
 
+    s_i2c_bus = sparky_i2c_get_bus();
+
 
     /*
-     * Add CST816T device.
+     * Add CST816T device to the shared bus.
      */
     i2c_device_config_t dev_config = {
         .dev_addr_length = I2C_ADDR_BIT_LEN_7,

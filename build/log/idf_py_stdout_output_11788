@@ -1,0 +1,283 @@
+Command: C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:\esp\v6.1\esp-idf\tools/idf_monitor.py -p COM6 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 C:\esp\sparky-wakeword\build\sparky-wakeword.elf C:\esp\sparky-wakeword\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe' 'C:\esp\v6.1\esp-idf\tools\idf.py' '-p' 'COM6'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037bd62
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x14f0
+load:0x403c8700,len:0xde4
+load:0x403cb700,len:0x2f58
+entry 0x403c8904
+[0;32mI (24) boot: ESP-IDF v6.1 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Sep  9 2026 23:41:48[0m
+[0;32mI (25) boot: Multicore bootloader[0m
+[0;32mI (25) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.4[0m
+[0;32mI (31) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (35) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32s3: SPI Flash Size : 16MB[0m
+[0;32mI (42) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (49) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (75) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3c020020 size=0f980h ( 63872) map[0m
+[0;32mI (98) esp_image: segment 1: paddr=0001f9a8 vaddr=3fc93700 size=00670h (  1648) load[0m
+[0;32mI (99) esp_image: segment 2: paddr=00020020 vaddr=42000020 size=1f474h (128116) map[0m
+[0;32mI (125) esp_image: segment 3: paddr=0003f49c vaddr=3fc93d70 size=02d18h ( 11544) load[0m
+[0;32mI (128) esp_image: segment 4: paddr=000421bc vaddr=40374000 size=0f6a0h ( 63136) load[0m
+[0;32mI (143) esp_image: segment 5: paddr=00051864 vaddr=50000000 size=00024h (    36) load[0m
+[0;32mI (150) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (150) boot: Disabling RNG early entropy source...[0m
+[0;32mI (161) cpu_start: Multicore app[0m
+[0;32mI (169) cpu_start: GPIO 44 and 43 are used as console UART I/O pins[0m
+[0;32mI (170) cpu_start: Pro cpu start user code[0m
+[0;32mI (170) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (172) app_init: Application information:[0m
+[0;32mI (175) app_init: Project name:     sparky-wakeword[0m
+[0;32mI (180) app_init: App version:      21f5274-dirty[0m
+[0;32mI (184) app_init: Compile time:     Sep 10 2026 01:03:19[0m
+[0;32mI (189) app_init: ELF file SHA256:  2293cacc8...[0m
+[0;32mI (194) app_init: ESP-IDF:          v6.1[0m
+[0;32mI (197) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (201) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (205) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (209) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (215) heap_init: At 3FC97550 len 000521C0 (328 KiB): RAM[0m
+[0;32mI (221) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (226) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (231) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM[0m
+[0;32mI (237) spi_flash: detected chip: generic[0m
+[0;32mI (240) spi_flash: flash io: dio[0m
+[0;32mI (243) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (249) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (256) main_task: Started on CPU0[0m
+[0;32mI (256) main_task: Calling app_main()[0m
+[0;32mI (266) SPARKY: ================================[0m
+[0;32mI (266) SPARKY:       SPARKY FIRMWARE START[0m
+[0;32mI (266) SPARKY: ================================[0m
+[0;32mI (276) SPARKY_DISPLAY: Initializing backlight[0m
+[0;32mI (276) SPARKY_DISPLAY: Initializing SPI bus[0m
+[0;32mI (286) SPARKY_DISPLAY: Initializing ST7789 SPI interface[0m
+[0;32mI (286) SPARKY_DISPLAY: Creating ST7789 panel[0m
+[0;32mI (296) SPARKY_DISPLAY: Resetting display[0m
+[0;32mI (316) SPARKY_DISPLAY: Initializing display[0m
+[0;32mI (416) SPARKY_DISPLAY: Enabling color inversion[0m
+[0;32mI (416) SPARKY_DISPLAY: Turning display on[0m
+[0;32mI (416) SPARKY_DISPLAY: ST7789 initialized successfully[0m
+[0;32mI (476) SPARKY_DISPLAY: LCD test pattern drawn[0m
+[0;32mI (476) SPARKY_I2C: Initializing shared I2C bus[0m
+[0;32mI (476) SPARKY_I2C: Shared I2C bus ready: SDA=42 SCL=41[0m
+[0;32mI (486) SPARKY_AUDIO: Initializing ES7210[0m
+[0;32mI (486) SPARKY_AUDIO: ES7210 responded, reg00=0x41[0m
+[0;32mI (516) SPARKY_AUDIO: ES7210 initialized successfully[0m
+[0;32mI (516) SPARKY_AUDIO: Initializing I2S RX[0m
+[0;32mI (516) SPARKY_AUDIO: Audio initialized successfully[0m
+[0;32mI (516) SPARKY_AUDIO: Audio: 16kHz / 16-bit / stereo / I2S[0m
+[0;32mI (516) SPARKY: LCD test completed[0m
+[0;32mI (526) SPARKY_TOUCH: Initializing CST816T[0m
+[0;32mI (636) SPARKY_TOUCH: I2C SDA=42 SCL=41[0m
+[0;32mI (636) SPARKY_TOUCH: CST816 detected: ID=0xB6 address=0x15[0m
+[0;32mI (636) SPARKY_TOUCH: CST816T initialized successfully[0m
+[0;32mI (636) SPARKY: Touch test running...[0m
+[0;32mI (636) SPARKY_AUDIO: AUDIO: min=0 max=0 rms=0.0[0m
+[0;32mI (696) SPARKY_AUDIO: AUDIO: min=-577 max=569 rms=162.4[0m
+[0;32mI (746) SPARKY_AUDIO: AUDIO: min=-321 max=491 rms=166.7[0m
+[0;32mI (796) SPARKY_AUDIO: AUDIO: min=-292 max=577 rms=172.4[0m
+[0;32mI (846) SPARKY_AUDIO: AUDIO: min=-328 max=560 rms=234.2[0m
+[0;32mI (896) SPARKY_AUDIO: AUDIO: min=-540 max=436 rms=215.0[0m
+[0;32mI (946) SPARKY_AUDIO: AUDIO: min=-353 max=652 rms=267.6[0m
+[0;32mI (996) SPARKY_AUDIO: AUDIO: min=-1047 max=800 rms=344.4[0m
+[0;32mI (1046) SPARKY_AUDIO: AUDIO: min=-515 max=486 rms=236.7[0m
+[0;32mI (1096) SPARKY_AUDIO: AUDIO: min=-728 max=675 rms=301.9[0m
+[0;32mI (1146) SPARKY_AUDIO: AUDIO: min=-659 max=406 rms=228.2[0m
+[0;32mI (1196) SPARKY_AUDIO: AUDIO: min=-446 max=463 rms=180.1[0m
+[0;32mI (1246) SPARKY_AUDIO: AUDIO: min=-699 max=458 rms=216.5[0m
+[0;32mI (1296) SPARKY_AUDIO: AUDIO: min=-619 max=530 rms=229.8[0m
+[0;32mI (1346) SPARKY_AUDIO: AUDIO: min=-319 max=503 rms=141.1[0m
+[0;32mI (1396) SPARKY_AUDIO: AUDIO: min=-392 max=478 rms=163.1[0m
+[0;32mI (1446) SPARKY_AUDIO: AUDIO: min=-540 max=438 rms=194.9[0m
+[0;32mI (1496) SPARKY_AUDIO: AUDIO: min=-513 max=420 rms=176.3[0m
+[0;32mI (1546) SPARKY_AUDIO: AUDIO: min=-444 max=505 rms=207.2[0m
+[0;32mI (1596) SPARKY_AUDIO: AUDIO: min=-411 max=344 rms=154.8[0m
+[0;32mI (1646) SPARKY_AUDIO: AUDIO: min=-523 max=411 rms=172.1[0m
+[0;32mI (1696) SPARKY_AUDIO: AUDIO: min=-501 max=422 rms=180.0[0m
+[0;32mI (1746) SPARKY_AUDIO: AUDIO: min=-451 max=584 rms=191.7[0m
+[0;32mI (1796) SPARKY_AUDIO: AUDIO: min=-629 max=591 rms=206.2[0m
+[0;32mI (1846) SPARKY_AUDIO: AUDIO: min=-642 max=523 rms=190.6[0m
+[0;32mI (1896) SPARKY_AUDIO: AUDIO: min=-619 max=503 rms=222.1[0m
+[0;32mI (1946) SPARKY_AUDIO: AUDIO: min=-442 max=462 rms=177.3[0m
+[0;32mI (1996) SPARKY_AUDIO: AUDIO: min=-503 max=498 rms=187.8[0m
+[0;32mI (2046) SPARKY_AUDIO: AUDIO: min=-476 max=489 rms=161.3[0m
+[0;32mI (2096) SPARKY_AUDIO: AUDIO: min=-639 max=551 rms=248.1[0m
+[0;32mI (2146) SPARKY_AUDIO: AUDIO: min=-450 max=402 rms=188.6[0m
+[0;32mI (2196) SPARKY_AUDIO: AUDIO: min=-277 max=369 rms=128.6[0m
+[0;32mI (2246) SPARKY_AUDIO: AUDIO: min=-603 max=393 rms=183.0[0m
+[0;32mI (2296) SPARKY_AUDIO: AUDIO: min=-450 max=536 rms=161.9[0m
+[0;32mI (2346) SPARKY_AUDIO: AUDIO: min=-500 max=420 rms=157.4[0m
+[0;32mI (2396) SPARKY_AUDIO: AUDIO: min=-374 max=515 rms=170.4[0m
+[0;32mI (2446) SPARKY_AUDIO: AUDIO: min=-348 max=407 rms=131.9[0m
+[0;32mI (2496) SPARKY_AUDIO: AUDIO: min=-399 max=383 rms=154.3[0m
+[0;32mI (2546) SPARKY_AUDIO: AUDIO: min=-559 max=335 rms=171.0[0m
+[0;32mI (2596) SPARKY_AUDIO: AUDIO: min=-487 max=428 rms=197.8[0m
+[0;32mI (2646) SPARKY_AUDIO: AUDIO: min=-324 max=367 rms=147.0[0m
+[0;32mI (2696) SPARKY_AUDIO: AUDIO: min=-750 max=896 rms=279.2[0m
+[0;32mI (2746) SPARKY_AUDIO: AUDIO: min=-340 max=352 rms=146.8[0m
+[0;32mI (2796) SPARKY_AUDIO: AUDIO: min=-272 max=486 rms=138.8[0m
+[0;32mI (2846) SPARKY_AUDIO: AUDIO: min=-321 max=342 rms=132.5[0m
+[0;32mI (2896) SPARKY_AUDIO: AUDIO: min=-330 max=410 rms=162.3[0m
+[0;32mI (2946) SPARKY_AUDIO: AUDIO: min=-440 max=450 rms=172.1[0m
+[0;32mI (2996) SPARKY_AUDIO: AUDIO: min=-331 max=452 rms=166.3[0m
+[0;32mI (3046) SPARKY_AUDIO: AUDIO: min=-325 max=357 rms=132.5[0m
+[0;32mI (3096) SPARKY_AUDIO: AUDIO: min=-353 max=456 rms=169.7[0m
+[0;32mI (3146) SPARKY_AUDIO: AUDIO: min=-32768 max=32767 rms=20887.9[0m
+[0;32mI (3196) SPARKY_AUDIO: AUDIO: min=-13347 max=13493 rms=5511.7[0m
+[0;32mI (3246) SPARKY_AUDIO: AUDIO: min=-14932 max=18712 rms=7062.2[0m
+[0;32mI (3296) SPARKY_AUDIO: AUDIO: min=-17074 max=16094 rms=7015.9[0m
+[0;32mI (3346) SPARKY_AUDIO: AUDIO: min=-14521 max=16585 rms=6400.4[0m
+[0;32mI (3396) SPARKY_AUDIO: AUDIO: min=-32768 max=32767 rms=14534.4[0m
+[0;32mI (3446) SPARKY_AUDIO: AUDIO: min=-26771 max=27487 rms=10471.9[0m
+[0;32mI (3496) SPARKY_AUDIO: AUDIO: min=-12429 max=11837 rms=4786.2[0m
+[0;32mI (3546) SPARKY_AUDIO: AUDIO: min=-7445 max=8106 rms=3093.7[0m
+[0;32mI (3596) SPARKY_AUDIO: AUDIO: min=-32768 max=32767 rms=18241.0[0m
+[0;32mI (3646) SPARKY_AUDIO: AUDIO: min=-32768 max=32535 rms=13208.0[0m
+[0;32mI (3696) SPARKY_AUDIO: AUDIO: min=-25103 max=22714 rms=10148.9[0m
+[0;32mI (3746) SPARKY_AUDIO: AUDIO: min=-3896 max=4796 rms=1584.0[0m
+[0;32mI (3796) SPARKY_AUDIO: AUDIO: min=-2601 max=1780 rms=945.2[0m
+[0;32mI (3846) SPARKY_AUDIO: AUDIO: min=-32768 max=32767 rms=16980.0[0m
+[0;32mI (3896) SPARKY_AUDIO: AUDIO: min=-7079 max=8029 rms=3188.1[0m
+[0;32mI (3946) SPARKY_AUDIO: AUDIO: min=-3648 max=3475 rms=1657.4[0m
+[0;32mI (3996) SPARKY_AUDIO: AUDIO: min=-29128 max=32767 rms=12209.3[0m
+[0;32mI (4046) SPARKY_AUDIO: AUDIO: min=-2606 max=1608 rms=811.3[0m
+[0;32mI (4096) SPARKY_AUDIO: AUDIO: min=-1211 max=1294 rms=485.1[0m
+[0;32mI (4146) SPARKY_AUDIO: AUDIO: min=-978 max=886 rms=355.6[0m
+[0;32mI (4196) SPARKY_AUDIO: AUDIO: min=-23201 max=24008 rms=7020.1[0m
+[0;32mI (4246) SPARKY_AUDIO: AUDIO: min=-2402 max=1728 rms=757.4[0m
+[0;32mI (4296) SPARKY_AUDIO: AUDIO: min=-623 max=533 rms=244.4[0m
+[0;32mI (4346) SPARKY_AUDIO: AUDIO: min=-5871 max=5659 rms=1757.9[0m
+[0;32mI (4396) SPARKY_AUDIO: AUDIO: min=-1143 max=1038 rms=400.4[0m
+[0;32mI (4446) SPARKY_AUDIO: AUDIO: min=-645 max=771 rms=248.6[0m
+[0;32mI (4496) SPARKY_AUDIO: AUDIO: min=-32768 max=25231 rms=12116.3[0m
+[0;32mI (4546) SPARKY_AUDIO: AUDIO: min=-32768 max=26002 rms=14003.3[0m
+[0;32mI (4596) SPARKY_AUDIO: AUDIO: min=-23726 max=17893 rms=7954.3[0m
+[0;32mI (4646) SPARKY_AUDIO: AUDIO: min=-3638 max=4029 rms=1463.6[0m
+[0;32mI (4696) SPARKY_AUDIO: AUDIO: min=-715 max=796 rms=278.9[0m
+[0;32mI (4746) SPARKY_AUDIO: AUDIO: min=-299 max=360 rms=122.2[0m
+[0;32mI (4796) SPARKY_AUDIO: AUDIO: min=-281 max=325 rms=133.6[0m
+[0;32mI (4846) SPARKY_AUDIO: AUDIO: min=-287 max=281 rms=122.5[0m
+[0;32mI (4896) SPARKY_AUDIO: AUDIO: min=-342 max=493 rms=140.4[0m
+[0;32mI (4946) SPARKY_AUDIO: AUDIO: min=-375 max=272 rms=130.7[0m
+[0;32mI (4996) SPARKY_AUDIO: AUDIO: min=-283 max=282 rms=118.9[0m
+[0;32mI (5046) SPARKY_AUDIO: AUDIO: min=-411 max=355 rms=141.6[0m
+[0;32mI (5096) SPARKY_AUDIO: AUDIO: min=-677 max=507 rms=202.8[0m
+[0;32mI (5146) SPARKY_AUDIO: AUDIO: min=-27545 max=32767 rms=6283.8[0m
+[0;32mI (5196) SPARKY_AUDIO: AUDIO: min=-490 max=393 rms=178.0[0m
+[0;32mI (5246) SPARKY_AUDIO: AUDIO: min=-411 max=457 rms=177.3[0m
+[0;32mI (5296) SPARKY_AUDIO: AUDIO: min=-468 max=500 rms=179.6[0m
+[0;32mI (5346) SPARKY_AUDIO: AUDIO: min=-32768 max=27732 rms=5679.7[0m
+[0;32mI (5396) SPARKY_AUDIO: AUDIO: min=-456 max=535 rms=173.8[0m
+[0;32mI (5446) SPARKY_AUDIO: AUDIO: min=-32768 max=32767 rms=8757.9[0m
+[0;32mI (5496) SPARKY_AUDIO: AUDIO: min=-582 max=398 rms=246.2[0m
+[0;32mI (5546) SPARKY_AUDIO: AUDIO: min=-722 max=623 rms=255.7[0m
+[0;32mI (5596) SPARKY_AUDIO: AUDIO: min=-302 max=263 rms=117.1[0m
+[0;32mI (5646) SPARKY_AUDIO: AUDIO: min=-298 max=398 rms=151.2[0m
+[0;32mI (5696) SPARKY_AUDIO: AUDIO: min=-482 max=446 rms=179.8[0m
+[0;32mI (5746) SPARKY_AUDIO: AUDIO: min=-402 max=370 rms=127.2[0m
+[0;32mI (5796) SPARKY_AUDIO: AUDIO: min=-333 max=274 rms=112.2[0m
+[0;32mI (5846) SPARKY_AUDIO: AUDIO: min=-339 max=232 rms=106.3[0m
+[0;32mI (5896) SPARKY_AUDIO: AUDIO: min=-346 max=437 rms=139.8[0m
+[0;32mI (5946) SPARKY_AUDIO: AUDIO: min=-262 max=182 rms=93.0[0m
+[0;32mI (5996) SPARKY_AUDIO: AUDIO: min=-241 max=297 rms=115.5[0m
+[0;32mI (6046) SPARKY_AUDIO: AUDIO: min=-229 max=413 rms=142.2[0m
+[0;32mI (6096) SPARKY_AUDIO: AUDIO: min=-631 max=610 rms=231.0[0m
+[0;32mI (6146) SPARKY_AUDIO: AUDIO: min=-433 max=419 rms=149.5[0m
+[0;32mI (6196) SPARKY_AUDIO: AUDIO: min=-292 max=466 rms=135.3[0m
+[0;32mI (6246) SPARKY_AUDIO: AUDIO: min=-294 max=293 rms=113.9[0m
+[0;32mI (6296) SPARKY_AUDIO: AUDIO: min=-292 max=249 rms=107.1[0m
+[0;32mI (6346) SPARKY_AUDIO: AUDIO: min=-888 max=785 rms=195.2[0m
+[0;32mI (6396) SPARKY_AUDIO: AUDIO: min=-400 max=267 rms=133.0[0m
+[0;32mI (6446) SPARKY_AUDIO: AUDIO: min=-321 max=295 rms=148.1[0m
+[0;32mI (6496) SPARKY_AUDIO: AUDIO: min=-322 max=264 rms=115.4[0m
+[0;32mI (6546) SPARKY_AUDIO: AUDIO: min=-263 max=284 rms=116.8[0m
+[0;32mI (6596) SPARKY_AUDIO: AUDIO: min=-333 max=257 rms=116.2[0m
+[0;32mI (6646) SPARKY_AUDIO: AUDIO: min=-921 max=875 rms=221.9[0m
+[0;32mI (6696) SPARKY_AUDIO: AUDIO: min=-285 max=241 rms=99.2[0m
+[0;32mI (6746) SPARKY_AUDIO: AUDIO: min=-293 max=252 rms=120.3[0m
+[0;32mI (6796) SPARKY_AUDIO: AUDIO: min=-312 max=244 rms=108.6[0m
+[0;32mI (6846) SPARKY_AUDIO: AUDIO: min=-178 max=272 rms=86.7[0m
+[0;32mI (6896) SPARKY_AUDIO: AUDIO: min=-534 max=669 rms=147.7[0m
+[0;32mI (6946) SPARKY_AUDIO: AUDIO: min=-216 max=285 rms=96.0[0m
+[0;32mI (6996) SPARKY_AUDIO: AUDIO: min=-286 max=256 rms=102.1[0m
+[0;32mI (7046) SPARKY_AUDIO: AUDIO: min=-282 max=323 rms=128.0[0m
+[0;32mI (7096) SPARKY_AUDIO: AUDIO: min=-273 max=360 rms=132.0[0m
+[0;32mI (7146) SPARKY_AUDIO: AUDIO: min=-336 max=372 rms=128.5[0m
+[0;32mI (7196) SPARKY_AUDIO: AUDIO: min=-270 max=325 rms=103.4[0m
+[0;32mI (7246) SPARKY_AUDIO: AUDIO: min=-272 max=367 rms=106.3[0m
+[0;32mI (7296) SPARKY_AUDIO: AUDIO: min=-203 max=291 rms=101.2[0m
+[0;32mI (7346) SPARKY_AUDIO: AUDIO: min=-285 max=332 rms=121.7[0m
+[0;32mI (7396) SPARKY_AUDIO: AUDIO: min=-299 max=395 rms=134.2[0m
+[0;32mI (7446) SPARKY_AUDIO: AUDIO: min=-181 max=261 rms=96.4[0m
+[0;32mI (7496) SPARKY_AUDIO: AUDIO: min=-346 max=370 rms=157.5[0m
+[0;32mI (7546) SPARKY_AUDIO: AUDIO: min=-322 max=348 rms=161.3[0m
+[0;32mI (7596) SPARKY_AUDIO: AUDIO: min=-335 max=311 rms=135.3[0m
+[0;32mI (7646) SPARKY_AUDIO: AUDIO: min=-316 max=395 rms=146.9[0m
+[0;32mI (7696) SPARKY_AUDIO: AUDIO: min=-274 max=413 rms=152.8[0m
+[0;32mI (7746) SPARKY_AUDIO: AUDIO: min=-316 max=377 rms=137.9[0m
+[0;32mI (7796) SPARKY_AUDIO: AUDIO: min=-400 max=272 rms=135.0[0m
+[0;32mI (7846) SPARKY_AUDIO: AUDIO: min=-385 max=508 rms=166.5[0m
+[0;32mI (7896) SPARKY_AUDIO: AUDIO: min=-330 max=389 rms=152.2[0m
+[0;32mI (7946) SPARKY_AUDIO: AUDIO: min=-354 max=319 rms=131.4[0m
+[0;32mI (7996) SPARKY_AUDIO: AUDIO: min=-457 max=431 rms=170.4[0m
+[0;32mI (8046) SPARKY_AUDIO: AUDIO: min=-311 max=357 rms=143.7[0m
+[0;32mI (8096) SPARKY_AUDIO: AUDIO: min=-1139 max=1158 rms=381.2[0m
+[0;32mI (8146) SPARKY_AUDIO: AUDIO: min=-16578 max=12494 rms=5280.3[0m
+[0;32mI (8196) SPARKY_AUDIO: AUDIO: min=-17427 max=11016 rms=6630.8[0m
+[0;32mI (8246) SPARKY_AUDIO: AUDIO: min=-5915 max=5666 rms=3106.9[0m
+[0;32mI (8296) SPARKY_AUDIO: AUDIO: min=-16678 max=10593 rms=5735.7[0m
+[0;32mI (8346) SPARKY_AUDIO: AUDIO: min=-17200 max=9433 rms=5901.0[0m
+[0;32mI (8396) SPARKY_AUDIO: AUDIO: min=-16834 max=10771 rms=5947.1[0m
+[0;32mI (8446) SPARKY_AUDIO: AUDIO: min=-4351 max=2495 rms=1260.6[0m
+[0;32mI (8496) SPARKY_AUDIO: AUDIO: min=-5819 max=3150 rms=1472.5[0m
+[0;32mI (8546) SPARKY_AUDIO: AUDIO: min=-14270 max=12169 rms=5737.7[0m
+[0;32mI (8596) SPARKY_AUDIO: AUDIO: min=-13502 max=8172 rms=3886.3[0m
+[0;32mI (8646) SPARKY_AUDIO: AUDIO: min=-4197 max=4163 rms=2283.8[0m
+[0;32mI (8696) SPARKY_AUDIO: AUDIO: min=-10848 max=7214 rms=3480.8[0m
+[0;32mI (8746) SPARKY_AUDIO: AUDIO: min=-10299 max=5868 rms=3519.4[0m
+[0;32mI (8796) SPARKY_AUDIO: AUDIO: min=-10993 max=5541 rms=3947.6[0m
+[0;32mI (8846) SPARKY_AUDIO: AUDIO: min=-2885 max=1482 rms=833.3[0m
+[0;32mI (8896) SPARKY_AUDIO: AUDIO: min=-3530 max=1402 rms=802.7[0m
+[0;32mI (8946) SPARKY_AUDIO: AUDIO: min=-15905 max=12448 rms=5634.7[0m
+[0;32mI (8996) SPARKY_AUDIO: AUDIO: min=-13958 max=9485 rms=5270.3[0m
+[0;32mI (9046) SPARKY_AUDIO: AUDIO: min=-4320 max=3471 rms=1692.2[0m
+[0;32mI (9096) SPARKY_AUDIO: AUDIO: min=-2750 max=2856 rms=1276.1[0m
+[0;32mI (9146) SPARKY_AUDIO: AUDIO: min=-6146 max=3310 rms=2053.5[0m
+[0;32mI (9196) SPARKY_AUDIO: AUDIO: min=-7351 max=13179 rms=2206.6[0m
+[0;32mI (9246) SPARKY_AUDIO: AUDIO: min=-4035 max=2878 rms=1495.3[0m
+[0;32mI (9296) SPARKY_AUDIO: AUDIO: min=-523 max=665 rms=211.2[0m
+[0;32mI (9346) SPARKY_AUDIO: AUDIO: min=-548 max=577 rms=204.5[0m
+[0;32mI (9396) SPARKY_AUDIO: AUDIO: min=-384 max=389 rms=160.3[0m
+[0;32mI (9446) SPARKY_AUDIO: AUDIO: min=-563 max=460 rms=180.4[0m
+[0;32mI (9496) SPARKY_AUDIO: AUDIO: min=-523 max=623 rms=208.6[0m
+[0;32mI (9546) SPARKY_AUDIO: AUDIO: min=-480 max=438 rms=189.7[0m
+[0;32mI (9596) SPARKY_AUDIO: AUDIO: min=-603 max=468 rms=208.6[0m
+[0;32mI (9646) SPARKY_AUDIO: AUDIO: min=-480 max=603 rms=198.6[0m
+[0;32mI (9696) SPARKY_AUDIO: AUDIO: min=-510 max=413 rms=185.0[0m
+[0;32mI (9746) SPARKY_AUDIO: AUDIO: min=-314 max=491 rms=151.8[0m
+[0;32mI (9796) SPARKY_AUDIO: AUDIO: min=-467 max=572 rms=175.9[0m
+[0;32mI (9846) SPARKY_AUDIO: AUDIO: min=-551 max=325 rms=149.1[0m
+[0;32mI (9896) SPARKY_AUDIO: AUDIO: min=-430 max=291 rms=161.2[0m
+[0;32mI (9946) SPARKY_AUDIO: AUDIO: min=-558 max=506 rms=201.4[0m
+[0;32mI (9996) SPARKY_AUDIO: AUDIO: min=-532 max=447 rms=184.6[0m
+[0;32mI (10046) SPARKY_AUDIO: AUDIO: min=-399 max=427 rms=176.9[0m
+[0;32mI (10096) SPARKY_AUDIO: AUDIO: min=-495 max=458 rms=206.0[0m
+[0;32mI (10146) SPARKY_AUDIO: AUDIO: min=-326 max=426 rms=154.4[0m
+[0;32mI (10196) SPARKY_AUDIO: AUDIO: min=-540 max=535 rms=238.3[0m
+[0;32mI (10246) SPARKY_AUDIO: AUDIO: min=-404 max=548 rms=205.9[0m
+[0;32mI (10296) SPARKY_AUDIO: AUDIO: min=-450 max=460 rms=194.4[0m
+[0;32mI (10346) SPARKY_AUDIO: AUDIO: min=-513 max=629 rms=206.7[0m
+[0;32mI (10396) SPARKY_AUDIO: AUDIO: min=-473 max=452 rms=165.9[0m
+[0;32mI (10446) SPARKY_AUDIO: AUDIO: min=-493 max=441 rms=171.6[0m
+[0;32mI (10496) SPARKY_AUDIO: AUDIO: min=-384 max=340 rms=155.8[0m

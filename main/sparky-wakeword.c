@@ -7,6 +7,8 @@
 #include "display.h"
 #include "touch.h"
 
+#include "audio.h"
+
 static const char *TAG = "SPARKY";
 
 
@@ -40,6 +42,10 @@ void app_main(void)
         sparky_display_test()
     );
 
+    ESP_ERROR_CHECK(
+        sparky_audio_init()
+    );
+
     ESP_LOGI(
         TAG,
         "LCD test completed"
@@ -68,61 +74,63 @@ void app_main(void)
     bool previous_pressed = false;
 
 
-    while (1) {
+   while (1) {
 
-        esp_err_t ret = sparky_touch_read(
-            &x,
-            &y,
-            &pressed
+    esp_err_t ret = sparky_touch_read(
+        &x,
+        &y,
+        &pressed
+    );
+
+
+    if (ret != ESP_OK) {
+
+        ESP_LOGE(
+            TAG,
+            "Touch read failed: %s",
+            esp_err_to_name(ret)
         );
 
-
-        if (ret != ESP_OK) {
-
-            ESP_LOGE(
-                TAG,
-                "Touch read failed: %s",
-                esp_err_to_name(ret)
-            );
-
-        } else {
-
-            /*
-             * Print only on state changes or
-             * while a finger is actively moving.
-             */
-            if (pressed) {
-
-                ESP_LOGI(
-                    TAG,
-                    "TOUCH: x=%u y=%u",
-                    x,
-                    y
-                );
-
-                sparky_display_touch_marker(x, y);
-
-            } else if (previous_pressed) {
-
-                ESP_LOGI(
-                    TAG,
-                    "TOUCH: RELEASE"
-                );
-            }
-        }
-
-
-        previous_pressed = pressed;
-
+    } else {
 
         /*
-         * 50 ms polling interval.
-         *
-         * We'll eventually replace this with
-         * the CST816 interrupt pin.
+         * Print only on state changes or
+         * while a finger is actively moving.
          */
-        vTaskDelay(
-            pdMS_TO_TICKS(50)
-        );
+        if (pressed) {
+
+            ESP_LOGI(
+                TAG,
+                "TOUCH: x=%u y=%u",
+                x,
+                y
+            );
+
+            sparky_display_touch_marker(x, y);
+
+        } else if (previous_pressed) {
+
+            ESP_LOGI(
+                TAG,
+                "TOUCH: RELEASE"
+            );
+        }
     }
+
+    previous_pressed = pressed;
+
+
+    /*
+     * Audio test.
+     */
+    sparky_audio_test();
+
+
+    /*
+     * 50 ms polling interval.
+     */
+    vTaskDelay(
+        pdMS_TO_TICKS(50)
+    );
+}
 }
