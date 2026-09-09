@@ -102,7 +102,6 @@ esp_err_t sparky_display_init(void)
 
     esp_lcd_panel_dev_config_t panel_config = {
         .reset_gpio_num = SPARKY_LCD_RST_GPIO,
-        .color_space = ESP_LCD_COLOR_SPACE_RGB,
         .bits_per_pixel = 16,
     };
 
