@@ -28,3 +28,14 @@
 #define SPARKY_LCD_BL_GPIO           GPIO_NUM_46
 
 #define SPARKY_LCD_PIXEL_CLOCK_HZ    (40 * 1000 * 1000)
+
+
+/* ---- Touch: CST816T ---- */
+
+#define SPARKY_TOUCH_SDA_GPIO        GPIO_NUM_42
+#define SPARKY_TOUCH_SCL_GPIO        GPIO_NUM_41
+#define SPARKY_TOUCH_INT_GPIO        GPIO_NUM_48
+#define SPARKY_TOUCH_RST_GPIO        GPIO_NUM_47
+
+#define SPARKY_TOUCH_I2C_ADDR        0x15
+#define SPARKY_TOUCH_I2C_SPEED_HZ    400000
