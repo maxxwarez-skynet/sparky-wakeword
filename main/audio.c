@@ -8,6 +8,8 @@
 #include "esp_log.h"
 #include "driver/i2c_master.h"
 #include "driver/i2s_std.h"
+#include "esp_codec_dev.h"
+#include "esp_codec_dev_defaults.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -15,7 +17,9 @@
 static const char *TAG = "SPARKY_AUDIO";
 
 static i2s_chan_handle_t s_rx_chan = NULL;
+static i2s_chan_handle_t s_tx_chan = NULL;
 static i2c_master_dev_handle_t s_es7210 = NULL;
+static esp_codec_dev_handle_t s_es8311 = NULL;
 
 
 /* ============================================================
@@ -520,13 +524,13 @@ esp_err_t sparky_audio_init(void)
 
     /*
      * --------------------------------------------------------
-     * I2S RX
+     * I2S full duplex
      * --------------------------------------------------------
      */
 
     ESP_LOGI(
         TAG,
-        "Initializing I2S RX"
+        "Initializing I2S RX/TX"
     );
 
 
@@ -536,10 +540,12 @@ esp_err_t sparky_audio_init(void)
             I2S_ROLE_MASTER
         );
 
+    chan_config.auto_clear = true;
+
 
     ret = i2s_new_channel(
         &chan_config,
-        NULL,
+        &s_tx_chan,
         &s_rx_chan
     );
 
@@ -599,25 +605,33 @@ esp_err_t sparky_audio_init(void)
         I2S_MCLK_MULTIPLE_256;
 
 
-    ret = i2s_channel_init_std_mode(
-        s_rx_chan,
-        &std_config
-    );
+    ret = i2s_channel_init_std_mode(s_tx_chan, &std_config);
 
     if (ret != ESP_OK) {
         ESP_LOGE(
             TAG,
-            "I2S configuration failed: %s",
+            "I2S TX configuration failed: %s",
             esp_err_to_name(ret)
         );
 
         return ret;
     }
 
+    ret = i2s_channel_init_std_mode(s_rx_chan, &std_config);
 
-    ret = i2s_channel_enable(
-        s_rx_chan
-    );
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "I2S RX configuration failed: %s", esp_err_to_name(ret));
+        return ret;
+    }
+
+    ret = i2s_channel_enable(s_tx_chan);
+
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "I2S TX enable failed: %s", esp_err_to_name(ret));
+        return ret;
+    }
+
+    ret = i2s_channel_enable(s_rx_chan);
 
     if (ret != ESP_OK) {
         ESP_LOGE(
@@ -640,6 +654,165 @@ esp_err_t sparky_audio_init(void)
         "Audio: 16kHz / 16-bit / stereo / I2S"
     );
 
+    return ESP_OK;
+}
+
+
+/* ============================================================
+ * ES8311 / speaker output
+ * ============================================================ */
+
+esp_err_t sparky_audio_output_init(void)
+{
+    if (s_tx_chan == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (s_es8311 != NULL) {
+        return ESP_OK;
+    }
+
+    i2c_master_bus_handle_t bus = sparky_i2c_get_bus();
+    if (bus == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    /*
+     * esp_codec_dev stores an 8-bit I2C write address and right-shifts
+     * it for the IDF master driver. SPARKY_ES8311_I2C_ADDR is 7-bit 0x18.
+     */
+    audio_codec_i2c_cfg_t i2c_cfg = {
+        .port = I2C_NUM_0,
+        .addr = SPARKY_ES8311_I2C_ADDR << 1,
+        .bus_handle = bus,
+    };
+    const audio_codec_ctrl_if_t *ctrl_if = audio_codec_new_i2c_ctrl(&i2c_cfg);
+    if (ctrl_if == NULL) {
+        ESP_LOGE(TAG, "Failed to create ES8311 I2C control interface");
+        return ESP_FAIL;
+    }
+
+    audio_codec_i2s_cfg_t i2s_cfg = {
+        .port = SPARKY_AUDIO_I2S_PORT,
+        .rx_handle = s_rx_chan,
+        .tx_handle = s_tx_chan,
+    };
+    const audio_codec_data_if_t *data_if = audio_codec_new_i2s_data(&i2s_cfg);
+    const audio_codec_gpio_if_t *gpio_if = audio_codec_new_gpio();
+    if (data_if == NULL || gpio_if == NULL) {
+        ESP_LOGE(TAG, "Failed to create ES8311 data interfaces");
+        return ESP_FAIL;
+    }
+
+    es8311_codec_cfg_t es8311_cfg = {
+        .ctrl_if = ctrl_if,
+        .gpio_if = gpio_if,
+        .codec_mode = ESP_CODEC_DEV_WORK_MODE_BOTH,
+        .master_mode = false,
+        .use_mclk = true,
+        .pa_pin = SPARKY_AUDIO_PA_CTRL_GPIO,
+        .pa_reverted = false,
+        .hw_gain = {
+            .pa_voltage = 5.0,
+            .codec_dac_voltage = 3.3,
+        },
+        .mclk_div = 256,
+    };
+    const audio_codec_if_t *es8311_if = es8311_codec_new(&es8311_cfg);
+    if (es8311_if == NULL) {
+        ESP_LOGE(TAG, "Failed to create ES8311 codec interface");
+        return ESP_FAIL;
+    }
+
+    esp_codec_dev_cfg_t device_cfg = {
+        .dev_type = ESP_CODEC_DEV_TYPE_IN_OUT,
+        .codec_if = es8311_if,
+        .data_if = data_if,
+    };
+    s_es8311 = esp_codec_dev_new(&device_cfg);
+    if (s_es8311 == NULL) {
+        ESP_LOGE(TAG, "Failed to create ES8311 device");
+        return ESP_FAIL;
+    }
+
+    esp_codec_dev_sample_info_t sample_cfg = {
+        .bits_per_sample = I2S_DATA_BIT_WIDTH_16BIT,
+        .channel = 2,
+        .channel_mask = 0x03,
+        .sample_rate = SPARKY_AUDIO_SAMPLE_RATE,
+    };
+    if (esp_codec_dev_open(s_es8311, &sample_cfg) != ESP_CODEC_DEV_OK) {
+        ESP_LOGE(TAG, "Failed to open ES8311 at 16 kHz stereo");
+        s_es8311 = NULL;
+        return ESP_FAIL;
+    }
+
+    if (esp_codec_dev_set_out_vol(s_es8311, 75) != ESP_CODEC_DEV_OK) {
+        ESP_LOGE(TAG, "Failed to set ES8311 volume");
+        return ESP_FAIL;
+    }
+
+    ESP_LOGI(TAG, "ES8311 speaker output ready; PA enabled on GPIO %d",
+             SPARKY_AUDIO_PA_CTRL_GPIO);
+    return ESP_OK;
+}
+
+esp_err_t sparky_audio_play_pcm(const int16_t *samples, size_t frame_count)
+{
+    if (s_es8311 == NULL || s_tx_chan == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+    if (samples == NULL || frame_count == 0) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    const char *data = (const char *)samples;
+    size_t bytes_remaining = frame_count * 2 * sizeof(*samples);
+    while (bytes_remaining > 0) {
+        size_t bytes_written = 0;
+        esp_err_t ret = i2s_channel_write(s_tx_chan, data, bytes_remaining,
+                                          &bytes_written, 1000);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "I2S TX write failed: %s", esp_err_to_name(ret));
+            return ret;
+        }
+        if (bytes_written == 0) {
+            return ESP_ERR_TIMEOUT;
+        }
+        data += bytes_written;
+        bytes_remaining -= bytes_written;
+    }
+    return ESP_OK;
+}
+
+esp_err_t sparky_audio_output_test_tone(void)
+{
+    enum { TONE_HZ = 440, TONE_FRAMES = 256, TONE_DURATION_MS = 1500 };
+    int16_t pcm[TONE_FRAMES * 2];
+    uint32_t phase = 0;
+    const uint32_t phase_step = (uint32_t)(((uint64_t)TONE_HZ << 32) /
+                                            SPARKY_AUDIO_SAMPLE_RATE);
+    const int chunk_count = (SPARKY_AUDIO_SAMPLE_RATE * TONE_DURATION_MS +
+                             1000 * TONE_FRAMES - 1) /
+                            (1000 * TONE_FRAMES);
+
+    ESP_LOGI(TAG, "Playing %d Hz speaker test tone", TONE_HZ);
+    for (int chunk = 0; chunk < chunk_count; ++chunk) {
+        for (int frame = 0; frame < TONE_FRAMES; ++frame) {
+            float angle = (float)phase * (6.283185307f / 4294967296.0f);
+            int16_t sample = (int16_t)(sinf(angle) * 6000.0f);
+            pcm[frame * 2] = sample;
+            pcm[frame * 2 + 1] = sample;
+            phase += phase_step;
+        }
+
+        esp_err_t ret = sparky_audio_play_pcm(pcm, TONE_FRAMES);
+        if (ret != ESP_OK) {
+            return ret;
+        }
+    }
+
+    ESP_LOGI(TAG, "Speaker test tone complete");
     return ESP_OK;
 }
 

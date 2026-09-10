@@ -207,6 +207,7 @@ C:/esp/sparky-wakeword/build/esp-idf/perfmon/libperfmon.a
 C:/esp/sparky-wakeword/build/esp-idf/rt/librt.a
 C:/esp/sparky-wakeword/build/esp-idf/spiffs/libspiffs.a
 C:/esp/sparky-wakeword/build/esp-idf/espressif__cjson/libespressif__cjson.a
+C:/esp/sparky-wakeword/build/esp-idf/espressif__esp_codec_dev/libespressif__esp_codec_dev.a
 C:/esp/sparky-wakeword/build/esp-idf/espressif__dl_fft/libespressif__dl_fft.a
 C:/esp/sparky-wakeword/managed_components/espressif__esp_new_jpeg/lib/esp32s3/libesp_new_jpeg.a
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dl/libespressif__esp-dl.a
@@ -233,3 +234,5 @@ C:/esp/sparky-wakeword/managed_components/espressif__esp-sr/lib/esp32s3/libnsnet
 C:/esp/sparky-wakeword/managed_components/espressif__esp-sr/lib/esp32s3/libvadnet.a
 C:/esp/sparky-wakeword/managed_components/espressif__esp-sr/lib/esp32s3/libwakenet.a
 C:/esp/sparky-wakeword/build/esp-idf/main/libmain.a
+C:/esp/sparky-wakeword/build/esp-idf/esp_lcd/libesp_lcd.a
+C:/esp/sparky-wakeword/build/esp-idf/espressif__esp_codec_dev/libespressif__esp_codec_dev.a

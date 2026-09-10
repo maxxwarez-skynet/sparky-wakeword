@@ -40,7 +40,7 @@
 #define SPARKY_TOUCH_I2C_ADDR        0x15
 #define SPARKY_TOUCH_I2C_SPEED_HZ    400000
 
-/* ---- Audio: ES7210 / I2S ---- */
+/* ---- Audio: ES7210 / ES8311 / I2S ---- */
 
 #define SPARKY_AUDIO_I2S_PORT       I2S_NUM_0
 
@@ -54,3 +54,5 @@
 #define SPARKY_AUDIO_BITS           I2S_DATA_BIT_WIDTH_16BIT
 
 #define SPARKY_ES7210_I2C_ADDR      0x40
+#define SPARKY_ES8311_I2C_ADDR      0x18  /* 7-bit; esp_codec_dev wants 0x30 */
+#define SPARKY_AUDIO_PA_CTRL_GPIO   GPIO_NUM_7

@@ -1,0 +1,16 @@
+menu "Sparky Configuration"
+
+config SPARKY_WIFI_SSID
+    string "WiFi SSID"
+    default ""
+    help
+        Development access point SSID used by Sparky in station mode.
+
+config SPARKY_WIFI_PASSWORD
+    string "WiFi Password"
+    default ""
+    help
+        Development access point password. This value is stored in sdkconfig
+        and must not be committed with real credentials.
+
+endmenu

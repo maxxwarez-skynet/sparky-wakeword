@@ -173,6 +173,7 @@
 		"C:/esp/sparky-wakeword/build/esp-idf/spiffs/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/ulp/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__cjson/cmake_install.cmake",
+		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp_codec_dev/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__dl_fft/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp_new_jpeg/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dl/cmake_install.cmake",

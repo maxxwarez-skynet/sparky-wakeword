@@ -1,9 +1,0 @@
-Command: C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:\esp\v6.1\esp-idf\tools/idf_monitor.py -p COM6 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 C:\esp\sparky-wakeword\build\sparky-wakeword.elf C:\esp\sparky-wakeword\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe' 'C:\esp\v6.1\esp-idf\tools\idf.py' '-p' 'COM6'
---- WARNING: GDB cannot open serial ports accessed as COMx
---- NOTE: Using \\.\COM6 instead...
---- esp-idf-monitor 1.10.0 on \\.\COM6 115200
---- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
---- 0x4200a188: s_test_psram at C:/esp/v6.1/esp-idf/components/esp_psram/system_layer/esp_psram.c:708
---- 0x403c8700: _stext at ??:?
---- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
-

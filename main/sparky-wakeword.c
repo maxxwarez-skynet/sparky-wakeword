@@ -13,6 +13,8 @@
 
 #include "afe.h"
 #include "speech_capture.h"
+#include "talk_client.h"
+#include "wifi.h"
 
 static const char *TAG = "SPARKY";
 
@@ -55,6 +57,14 @@ void app_main(void)
         sparky_audio_init()
     );
 
+    ESP_ERROR_CHECK(
+        sparky_audio_output_init()
+    );
+
+    ESP_ERROR_CHECK(
+        sparky_audio_output_test_tone()
+    );
+
 
     /*
      * Initialize ESP-SR AFE.
@@ -77,6 +87,11 @@ void app_main(void)
     ESP_ERROR_CHECK(
         sparky_touch_init()
     );
+
+    esp_err_t wifi_ret = sparky_wifi_init();
+    if (wifi_ret != ESP_OK) {
+        ESP_LOGW(TAG, "WiFi unavailable: %s", esp_err_to_name(wifi_ret));
+    }
 
 
     ESP_LOGI(
@@ -103,7 +118,6 @@ void app_main(void)
 
     bool pressed = false;
     bool previous_pressed = false;
-    bool capture_active = false;
 
 
     while (1) {
@@ -184,19 +198,6 @@ void app_main(void)
 
         } else {
 
-            ret = sparky_speech_capture_add_samples(
-                afe_samples,
-                2048
-            );
-
-            if (ret != ESP_OK) {
-                ESP_LOGE(
-                    TAG,
-                    "Capture sample add failed: %s",
-                    esp_err_to_name(ret)
-                );
-            }
-
             /*
              * Feed the microphone samples into ESP-SR.
              */
@@ -220,8 +221,6 @@ void app_main(void)
                  * output frames.  Consume both so the AFE ring buffer
                  * remains balanced.
                 */
-                bool wake_started_this_feed = false;
-
                 for (int i = 0; i < 2; i++) {
                     ret = sparky_afe_fetch();
 
@@ -245,9 +244,6 @@ void app_main(void)
                                 "Failed to start capture: %s",
                                 esp_err_to_name(ret)
                             );
-                        } else {
-                            wake_started_this_feed = true;
-                            capture_active = true;
                         }
 
                         ret = sparky_display_awake();
@@ -259,33 +255,56 @@ void app_main(void)
                             );
                         }
 
+                        /* Do not include the wake-word result in the utterance. */
+                        continue;
                     }
 
-                    if (!wake_started_this_feed) {
-                        ret = sparky_speech_capture_handle_vad(
-                            sparky_afe_get_vad_state()
+                    if (sparky_speech_capture_is_active()) {
+                        ret = sparky_speech_capture_process_fetch_result(
+                            sparky_afe_get_fetch_result()
                         );
                         if (ret != ESP_OK) {
                             ESP_LOGE(
                                 TAG,
-                                "Capture VAD update failed: %s",
+                                "Capture fetch processing failed: %s",
                                 esp_err_to_name(ret)
                             );
                         }
+                    }
 
-                        if (capture_active &&
-                            sparky_speech_capture_is_complete()) {
-                            capture_active = false;
-
-                            ret = sparky_display_test();
+                    if (sparky_speech_capture_is_complete() &&
+                        sparky_wifi_is_connected() &&
+                        !sparky_talk_is_busy() &&
+                        !sparky_talk_is_complete()) {
+                        const int16_t *captured_samples;
+                        size_t captured_sample_count;
+                        size_t captured_bytes;
+                        ret = sparky_speech_capture_get_data(
+                            &captured_samples, &captured_sample_count, &captured_bytes
+                        );
+                        if (ret == ESP_OK) {
+                            ESP_LOGI(TAG, "Captured utterance: %u samples, %u bytes, %u ms",
+                                     (unsigned)captured_sample_count, (unsigned)captured_bytes,
+                                     (unsigned)(captured_sample_count * 1000 /
+                                                SPARKY_SPEECH_CAPTURE_SAMPLE_RATE));
+                            ret = sparky_talk_start(captured_samples, captured_bytes);
                             if (ret != ESP_OK) {
-                                ESP_LOGE(
-                                    TAG,
-                                    "Failed to restore listening display: %s",
-                                    esp_err_to_name(ret)
-                                );
+                                ESP_LOGE(TAG, "Failed to start /talk request: %s",
+                                         esp_err_to_name(ret));
                             }
                         }
+                    }
+
+                    if (sparky_speech_capture_is_complete() &&
+                        sparky_talk_is_complete()) {
+                        ret = sparky_display_test();
+                        if (ret != ESP_OK) {
+                            ESP_LOGE(TAG, "Failed to restore listening display: %s",
+                                     esp_err_to_name(ret));
+                        }
+                        sparky_speech_capture_reset();
+                        sparky_talk_finish();
+                        ESP_LOGI(TAG, "Returning to WAIT_FOR_WAKE");
                     }
                 }
             }

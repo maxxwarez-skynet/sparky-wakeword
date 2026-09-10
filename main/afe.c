@@ -22,6 +22,7 @@ static esp_afe_sr_data_t *s_afe_data = NULL;
 
 static bool s_wake_word_detected = false;
 static int s_vad_state = 0;
+static const afe_fetch_result_t *s_fetch_result = NULL;
 
 
 /*
@@ -441,15 +442,7 @@ esp_err_t sparky_afe_fetch(void)
     }
 
 
-    ESP_LOGI(
-        TAG,
-        "AFE: ret=%d vad=%d wakeup=%d wake_word=%d volume=%.1f dBFS",
-        result->ret_value,
-        result->vad_state,
-        result->wakeup_state,
-        result->wake_word_index,
-        result->data_volume
-    );
+    s_fetch_result = result;
 
     if (result->wakeup_state) {
         s_wake_word_detected = true;
@@ -476,4 +469,9 @@ bool sparky_afe_wake_word_detected(void)
     bool detected = s_wake_word_detected;
     s_wake_word_detected = false;
     return detected;
+}
+
+const afe_fetch_result_t *sparky_afe_get_fetch_result(void)
+{
+    return s_fetch_result;
 }
