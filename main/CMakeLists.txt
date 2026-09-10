@@ -6,6 +6,7 @@ idf_component_register(
         "audio.c"
         "i2c_bus.c"
         "afe.c"
+        "speech_capture.c"
 
     INCLUDE_DIRS
         "."

@@ -21,6 +21,7 @@ static const esp_afe_sr_iface_t *s_afe_handle = NULL;
 static esp_afe_sr_data_t *s_afe_data = NULL;
 
 static bool s_wake_word_detected = false;
+static int s_vad_state = 0;
 
 
 /*
@@ -459,8 +460,15 @@ esp_err_t sparky_afe_fetch(void)
         ESP_LOGI(TAG, "================================");
     }
 
+    s_vad_state = result->vad_state;
+
 
     return ESP_OK;
+}
+
+int sparky_afe_get_vad_state(void)
+{
+    return s_vad_state;
 }
 
 bool sparky_afe_wake_word_detected(void)

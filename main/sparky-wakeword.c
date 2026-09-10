@@ -12,6 +12,7 @@
 #include "audio.h"
 
 #include "afe.h"
+#include "speech_capture.h"
 
 static const char *TAG = "SPARKY";
 
@@ -102,6 +103,7 @@ void app_main(void)
 
     bool pressed = false;
     bool previous_pressed = false;
+    bool capture_active = false;
 
 
     while (1) {
@@ -128,7 +130,6 @@ void app_main(void)
             );
 
         } else {
-
             /*
              * Print only on state changes or
              * while a finger is actively moving.
@@ -183,6 +184,19 @@ void app_main(void)
 
         } else {
 
+            ret = sparky_speech_capture_add_samples(
+                afe_samples,
+                2048
+            );
+
+            if (ret != ESP_OK) {
+                ESP_LOGE(
+                    TAG,
+                    "Capture sample add failed: %s",
+                    esp_err_to_name(ret)
+                );
+            }
+
             /*
              * Feed the microphone samples into ESP-SR.
              */
@@ -206,6 +220,8 @@ void app_main(void)
                  * output frames.  Consume both so the AFE ring buffer
                  * remains balanced.
                 */
+                bool wake_started_this_feed = false;
+
                 for (int i = 0; i < 2; i++) {
                     ret = sparky_afe_fetch();
 
@@ -218,8 +234,21 @@ void app_main(void)
                         break;
                     }
 
-                    if (sparky_afe_wake_word_detected()) {
+                    if (sparky_afe_wake_word_detected() &&
+                        sparky_speech_capture_can_start()) {
                         ESP_LOGI(TAG, ">>> SPARKY WAKE EVENT <<<");
+
+                        ret = sparky_speech_capture_start();
+                        if (ret != ESP_OK) {
+                            ESP_LOGE(
+                                TAG,
+                                "Failed to start capture: %s",
+                                esp_err_to_name(ret)
+                            );
+                        } else {
+                            wake_started_this_feed = true;
+                            capture_active = true;
+                        }
 
                         ret = sparky_display_awake();
                         if (ret != ESP_OK) {
@@ -228,6 +257,34 @@ void app_main(void)
                                 "Failed to show AWAKE state: %s",
                                 esp_err_to_name(ret)
                             );
+                        }
+
+                    }
+
+                    if (!wake_started_this_feed) {
+                        ret = sparky_speech_capture_handle_vad(
+                            sparky_afe_get_vad_state()
+                        );
+                        if (ret != ESP_OK) {
+                            ESP_LOGE(
+                                TAG,
+                                "Capture VAD update failed: %s",
+                                esp_err_to_name(ret)
+                            );
+                        }
+
+                        if (capture_active &&
+                            sparky_speech_capture_is_complete()) {
+                            capture_active = false;
+
+                            ret = sparky_display_test();
+                            if (ret != ESP_OK) {
+                                ESP_LOGE(
+                                    TAG,
+                                    "Failed to restore listening display: %s",
+                                    esp_err_to_name(ret)
+                                );
+                            }
                         }
                     }
                 }

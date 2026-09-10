@@ -17,4 +17,7 @@ esp_err_t sparky_afe_feed(
 
 esp_err_t sparky_afe_fetch(void);
 
+/* VAD state from the most recent successful AFE fetch: 0=silence, 1=speech. */
+int sparky_afe_get_vad_state(void);
+
 bool sparky_afe_wake_word_detected(void);

@@ -1,7 +1,7 @@
 {
     "version":            "1.3",
     "project_name":       "sparky-wakeword",
-    "project_version":    "92e3b4f-dirty",
+    "project_version":    "a57aec9-dirty",
     "project_path":       "C:/esp/sparky-wakeword",
     "idf_path":           "C:/esp/v6.1/esp-idf",
     "build_dir":          "C:/esp/sparky-wakeword/build",
@@ -1960,7 +1960,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp-sr" ],
             "file": "C:/esp/sparky-wakeword/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/esp/sparky-wakeword/main/sparky-wakeword.c", "C:/esp/sparky-wakeword/main/display.c", "C:/esp/sparky-wakeword/main/touch.c", "C:/esp/sparky-wakeword/main/audio.c", "C:/esp/sparky-wakeword/main/i2c_bus.c", "C:/esp/sparky-wakeword/main/afe.c" ],
+            "sources": [ "C:/esp/sparky-wakeword/main/sparky-wakeword.c", "C:/esp/sparky-wakeword/main/display.c", "C:/esp/sparky-wakeword/main/touch.c", "C:/esp/sparky-wakeword/main/audio.c", "C:/esp/sparky-wakeword/main/i2c_bus.c", "C:/esp/sparky-wakeword/main/afe.c", "C:/esp/sparky-wakeword/main/speech_capture.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
