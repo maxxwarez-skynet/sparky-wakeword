@@ -4070,6 +4070,21 @@ CONFIG_WL_SECTOR_SIZE=4096
 # end of Wear Levelling
 
 #
+# MP3 Decoder
+#
+# default:
+CONFIG_MP3_COMPONENT=y
+# default:
+CONFIG_MP3_DECODER_PREFER_PSRAM=y
+# default:
+# CONFIG_MP3_DECODER_PREFER_INTERNAL is not set
+# default:
+# CONFIG_MP3_DECODER_PSRAM_ONLY is not set
+# default:
+# CONFIG_MP3_DECODER_INTERNAL_ONLY is not set
+# end of MP3 Decoder
+
+#
 # cJSON
 #
 # default:

@@ -48162,6 +48162,74 @@
                     {
                         "children": [],
                         "depends_on": null,
+                        "help": null,
+                        "id": "MP3_COMPONENT",
+                        "name": "MP3_COMPONENT",
+                        "range": null,
+                        "title": null,
+                        "type": "bool"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "depends_on": "<choice MP3_DECODER_MEMORY_PREFERENCE>",
+                                "help": "Try to allocate from PSRAM first. If PSRAM allocation fails or\nis unavailable, fall back to internal RAM.\n\nRecommended for most use cases to conserve internal RAM.",
+                                "id": "MP3_DECODER_PREFER_PSRAM",
+                                "name": "MP3_DECODER_PREFER_PSRAM",
+                                "range": null,
+                                "title": "Prefer PSRAM, fall back to internal RAM",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice MP3_DECODER_MEMORY_PREFERENCE>",
+                                "help": "Try to allocate from internal RAM first. If internal RAM\nallocation fails, fall back to PSRAM.\n\nMay provide slightly better performance at the cost of using\nmore internal RAM.",
+                                "id": "MP3_DECODER_PREFER_INTERNAL",
+                                "name": "MP3_DECODER_PREFER_INTERNAL",
+                                "range": null,
+                                "title": "Prefer internal RAM, fall back to PSRAM",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "SPIRAM && <choice MP3_DECODER_MEMORY_PREFERENCE>",
+                                "help": "Only allocate from PSRAM. If PSRAM is not available or allocation\nfails, the decoder will fail to initialize.",
+                                "id": "MP3_DECODER_PSRAM_ONLY",
+                                "name": "MP3_DECODER_PSRAM_ONLY",
+                                "range": null,
+                                "title": "PSRAM only (fail if unavailable)",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice MP3_DECODER_MEMORY_PREFERENCE>",
+                                "help": "Never use PSRAM for decoder state. Only use internal RAM.",
+                                "id": "MP3_DECODER_INTERNAL_ONLY",
+                                "name": "MP3_DECODER_INTERNAL_ONLY",
+                                "range": null,
+                                "title": "Internal RAM only",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": null,
+                        "help": "Choose memory allocation preference for the MP3 decoder state buffers.\n\nThe decoder state is allocated once at initialization and accessed\nduring each decode operation.\n\n- Prefer PSRAM: Saves internal RAM, slight performance penalty\n- Prefer internal: Better performance, uses precious internal RAM\n- PSRAM only: Fails if PSRAM unavailable\n- Internal only: Never uses PSRAM",
+                        "id": "component-config-mp3-decoder-memory-preference-for-mp3-decoder-state-C:-esp-sparky-wakeword-managed_components-esphome__micro-mp3-Kconfig-7",
+                        "name": "MP3_DECODER_MEMORY_PREFERENCE",
+                        "title": "Memory preference for MP3 decoder state",
+                        "type": "choice"
+                    }
+                ],
+                "depends_on": null,
+                "id": "component-config-mp3-decoder-C:-esp-sparky-wakeword-managed_components-esphome__micro-mp3-Kconfig-1",
+                "title": "MP3 Decoder",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
                         "help": "Limits how deeply nested arrays/objects can be before cJSON\nrejects to parse them. This is to prevent stack overflows.\nLower values use less stack, higher values allow deeper nesting.",
                         "id": "CJSON_NESTING_LIMIT",
                         "name": "CJSON_NESTING_LIMIT",

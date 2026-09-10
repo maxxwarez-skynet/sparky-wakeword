@@ -8,6 +8,7 @@ idf_component_register(
         "afe.c"
         "speech_capture.c"
         "talk_client.c"
+        "tts_player.cpp"
         "wifi.c"
        
 
@@ -28,4 +29,5 @@ idf_component_register(
         espressif__cjson
         espressif__esp_codec_dev
         espressif__esp-sr
+        esphome__micro-mp3
 )

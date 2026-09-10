@@ -233,6 +233,8 @@ $<TARGET_FILE:multinet>
 $<TARGET_FILE:nsnet>
 $<TARGET_FILE:vadnet>
 $<TARGET_FILE:wakenet>
+$<TARGET_FILE:idf::esphome__micro-mp3>
 $<TARGET_FILE:idf::main>
 $<TARGET_FILE:__idf_esp_lcd>
 $<TARGET_FILE:__idf_espressif__esp_codec_dev>
+$<TARGET_FILE:__idf_esphome__micro-mp3>

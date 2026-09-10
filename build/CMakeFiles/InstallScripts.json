@@ -179,6 +179,7 @@
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dl/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dsp/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/cmake_install.cmake",
+		"C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/cmake_install.cmake",
 		"C:/esp/sparky-wakeword/build/esp-idf/main/cmake_install.cmake"
 	],
 	"Parallel" : false

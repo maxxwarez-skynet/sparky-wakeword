@@ -1240,6 +1240,13 @@ C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/list_install_c
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/install.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/install/local.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/install/strip.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/__idf_esphome__micro-mp3.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/edit_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/rebuild_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/list_install_components.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/install.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/install/local.dir
+C:/esp/sparky-wakeword/build/esp-idf/esphome__micro-mp3/CMakeFiles/install/strip.dir
 C:/esp/sparky-wakeword/build/esp-idf/main/CMakeFiles/__idf_main.dir
 C:/esp/sparky-wakeword/build/esp-idf/main/CMakeFiles/edit_cache.dir
 C:/esp/sparky-wakeword/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
