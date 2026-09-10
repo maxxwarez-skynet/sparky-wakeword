@@ -5,6 +5,9 @@
 
 #include "esp_err.h"
 
+#include <stdbool.h>
+
+
 esp_err_t sparky_afe_init(void);
 
 esp_err_t sparky_afe_feed(
@@ -13,3 +16,5 @@ esp_err_t sparky_afe_feed(
 );
 
 esp_err_t sparky_afe_fetch(void);
+
+bool sparky_afe_wake_word_detected(void);

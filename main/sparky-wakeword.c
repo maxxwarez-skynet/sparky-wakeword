@@ -199,19 +199,30 @@ void app_main(void)
                     "AFE feed failed: %s",
                     esp_err_to_name(ret)
                 );
-            }
-                        else {
+            } else {
 
-                ret = sparky_afe_fetch();
-                vTaskDelay(pdMS_TO_TICKS(10));
+                /*
+                 * One 1024-sample input frame produces two 512-sample
+                 * output frames.  Consume both so the AFE ring buffer
+                 * remains balanced.
+                 */
+                for (int i = 0; i < 2; i++) {
+                    ret = sparky_afe_fetch();
+                    if (sparky_afe_wake_word_detected()) {
+    ESP_LOGI(
+        TAG,
+        ">>> SPARKY WAKE EVENT <<<"
+    );
+}
 
-                if (ret != ESP_OK) {
-
-                    ESP_LOGE(
-                        TAG,
-                        "AFE fetch failed: %s",
-                        esp_err_to_name(ret)
-                    );
+                    if (ret != ESP_OK) {
+                        ESP_LOGE(
+                            TAG,
+                            "AFE fetch failed: %s",
+                            esp_err_to_name(ret)
+                        );
+                        break;
+                    }
                 }
             }
         }
