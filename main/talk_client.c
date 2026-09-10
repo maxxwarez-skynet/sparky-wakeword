@@ -138,18 +138,25 @@ static void collect_response_metadata(const char *data, size_t length)
 
             } else if (byte == '"') {
 
+                /*
+                 * Match the JSON key "audio" exactly.
+                 * "audioFormat" also starts with those five letters.
+                 */
                 s_talk.response_scan_state =
                     s_talk.string_token_length == 5 &&
                     memcmp(s_talk.string_token, "audio", 5) == 0
                         ? RESPONSE_SCAN_AUDIO_COLON
                         : RESPONSE_SCAN_NORMAL;
 
-            } else if (s_talk.string_token_length <
-                       sizeof(s_talk.string_token) - 1) {
+            } else if (s_talk.string_token_length < 5) {
 
                 s_talk.string_token[
                     s_talk.string_token_length++
                 ] = byte;
+
+            } else {
+                /* Key is longer than "audio"; it cannot be the audio field. */
+                s_talk.string_token_length = 6;
             }
 
             break;
@@ -181,16 +188,18 @@ static void collect_response_metadata(const char *data, size_t length)
                  * Preserve the opening quote in the metadata JSON,
                  * then stream the Base64 contents rather than storing them.
                  */
-                esp_err_t ret = sparky_tts_player_begin();
+                if (!s_talk.tts_started && !s_talk.audio_error) {
+                    esp_err_t ret = sparky_tts_player_begin();
 
-                if (ret != ESP_OK) {
-                    ESP_LOGE(TAG,
-                             "Failed to start TTS player: %s",
-                             esp_err_to_name(ret));
+                    if (ret != ESP_OK) {
+                        ESP_LOGE(TAG,
+                                 "Failed to start TTS player: %s",
+                                 esp_err_to_name(ret));
 
-                    s_talk.audio_error = true;
-                } else {
-                    s_talk.tts_started = true;
+                        s_talk.audio_error = true;
+                    } else {
+                        s_talk.tts_started = true;
+                    }
                 }
 
                 s_talk.response_scan_state =
