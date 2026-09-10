@@ -10,15 +10,15 @@ extern "C" {
 #endif
 
 /*
- * Start consuming one MP3 response.
+ * Incremental TTS playback of the V1 /talk "audio" JSON string.
  *
- * The caller then feeds the contents of the JSON "audio" string through
- * sparky_tts_player_feed_base64(). The player decodes and plays audio
- * incrementally; the complete MP3 is never buffered in RAM.
+ * The HTTP reader feeds Base64 characters. Decode and I2S playback run on a
+ * dedicated task so the MP3 decoder cannot overflow the HTTP task stack.
  */
 esp_err_t sparky_tts_player_begin(void);
 esp_err_t sparky_tts_player_feed_base64(const char *data, size_t length);
-esp_err_t sparky_tts_player_end(void);
+esp_err_t sparky_tts_player_close_input(void);
+esp_err_t sparky_tts_player_wait(void);
 bool sparky_tts_player_is_active(void);
 
 #ifdef __cplusplus

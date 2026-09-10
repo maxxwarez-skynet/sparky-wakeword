@@ -42,6 +42,7 @@ typedef struct {
     bool string_escape;
     bool response_overflow;
     bool audio_error;
+    bool tts_started;
     bool busy;
     bool complete;
 } talk_state_t;
@@ -188,6 +189,8 @@ static void collect_response_metadata(const char *data, size_t length)
                              esp_err_to_name(ret));
 
                     s_talk.audio_error = true;
+                } else {
+                    s_talk.tts_started = true;
                 }
 
                 s_talk.response_scan_state =
@@ -209,53 +212,51 @@ static void collect_response_metadata(const char *data, size_t length)
         case RESPONSE_SCAN_AUDIO_STRING:
 
             if (s_talk.string_escape) {
-
-                /*
-                 * Base64 should never require JSON escaping.
-                 * Treat an escape as an audio error but keep scanning
-                 * to the closing quote so metadata remains parseable.
-                 */
                 s_talk.string_escape = false;
                 s_talk.audio_error = true;
-
-                continue;
+                break;
             }
 
             if (byte == '\\') {
-
                 s_talk.string_escape = true;
+                break;
+            }
 
-            } else if (byte == '"') {
-
-                esp_err_t ret =
-                    sparky_tts_player_is_active()
-                        ? sparky_tts_player_end()
-                        : ESP_OK;
-
-                if (ret != ESP_OK) {
-                    ESP_LOGE(TAG,
-                             "TTS playback ended with error: %s",
-                             esp_err_to_name(ret));
-
-                    s_talk.audio_error = true;
+            if (byte == '"') {
+                if (s_talk.tts_started) {
+                    esp_err_t ret = sparky_tts_player_close_input();
+                    if (ret != ESP_OK) {
+                        ESP_LOGE(TAG,
+                                 "TTS input ended with error: %s",
+                                 esp_err_to_name(ret));
+                        s_talk.audio_error = true;
+                    }
                 }
 
                 append_response_byte(byte);
+                s_talk.response_scan_state = RESPONSE_SCAN_NORMAL;
+                break;
+            }
 
-                s_talk.response_scan_state =
-                    RESPONSE_SCAN_NORMAL;
+            if (s_talk.audio_error || !s_talk.tts_started) {
+                break;
+            }
 
-            } else if (!s_talk.audio_error &&
-                       sparky_tts_player_is_active()) {
+            {
+                size_t start = i;
+                while (i + 1 < length) {
+                    char next = data[i + 1];
+                    if (next == '"' || next == '\\') {
+                        break;
+                    }
+                    ++i;
+                }
 
-                esp_err_t ret =
-                    sparky_tts_player_feed_base64(&byte, 1);
-
+                esp_err_t ret = sparky_tts_player_feed_base64(
+                    data + start, i - start + 1);
                 if (ret != ESP_OK) {
-                    ESP_LOGE(TAG,
-                             "TTS Base64/decode error: %s",
+                    ESP_LOGE(TAG, "TTS Base64/decode error: %s",
                              esp_err_to_name(ret));
-
                     s_talk.audio_error = true;
                 }
             }
@@ -266,18 +267,10 @@ static void collect_response_metadata(const char *data, size_t length)
 }
 
 /*
- * We intentionally do not register an esp_http_client event handler here.
- *
- * The response is read synchronously by talk_task(), and each chunk is
- * passed directly to collect_response_metadata().
- *
- * This avoids routing the response through the ESP event loop.
+ * Response bytes are consumed by talk_task() via esp_http_client_read().
+ * A user event handler is not used. The HTTP client still posts
+ * ESP_HTTP_CLIENT_EVENT to the default loop internally.
  */
-static esp_err_t http_event(esp_http_client_event_t *event)
-{
-    (void)event;
-    return ESP_OK;
-}
 
 static void log_field(cJSON *root, const char *name)
 {
@@ -406,7 +399,7 @@ static void talk_task(void *arg)
         .event_handler = NULL,
 
         .crt_bundle_attach = esp_crt_bundle_attach,
-        .timeout_ms = 60000,
+        .timeout_ms = 120000,
     };
 
     esp_http_client_handle_t client =
@@ -532,19 +525,19 @@ static void talk_task(void *arg)
 
 done:
 
-    /*
-     * If the HTTP connection ended unexpectedly while an audio string
-     * was still active, close the TTS stream cleanly.
-     */
-    if (sparky_tts_player_is_active()) {
+    if (s_talk.tts_started) {
+        if (sparky_tts_player_is_active()) {
+            ESP_LOGW(TAG, "Closing TTS input after HTTP response");
+            sparky_tts_player_close_input();
+        }
 
-        ESP_LOGW(
-            TAG,
-            "HTTP response ended while TTS audio was active");
-
-        if (sparky_tts_player_end() != ESP_OK) {
+        esp_err_t tts_ret = sparky_tts_player_wait();
+        if (tts_ret != ESP_OK) {
+            ESP_LOGE(TAG, "TTS playback failed: %s",
+                     esp_err_to_name(tts_ret));
             s_talk.audio_error = true;
         }
+        s_talk.tts_started = false;
     }
 
     s_talk.busy = false;
@@ -583,6 +576,7 @@ esp_err_t sparky_talk_start(
 
     s_talk.response_overflow = false;
     s_talk.audio_error = false;
+    s_talk.tts_started = false;
     s_talk.complete = false;
 
     s_talk.response =
@@ -602,7 +596,7 @@ esp_err_t sparky_talk_start(
     if (xTaskCreate(
             talk_task,
             "sparky_talk",
-            6144,
+            8192,
             NULL,
             5,
             NULL) != pdPASS) {

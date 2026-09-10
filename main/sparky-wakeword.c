@@ -61,10 +61,6 @@ void app_main(void)
         sparky_audio_output_init()
     );
 
-    ESP_ERROR_CHECK(
-        sparky_audio_output_test_tone()
-    );
-
 
     /*
      * Initialize ESP-SR AFE.

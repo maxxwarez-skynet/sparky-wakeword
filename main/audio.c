@@ -6,6 +6,7 @@
 #include <stdint.h>
 
 #include "esp_log.h"
+#include "driver/gpio.h"
 #include "driver/i2c_master.h"
 #include "driver/i2s_std.h"
 #include "esp_codec_dev.h"
@@ -752,9 +753,17 @@ esp_err_t sparky_audio_output_init(void)
         return ESP_FAIL;
     }
 
-    ESP_LOGI(TAG, "ES8311 speaker output ready; PA enabled on GPIO %d",
+    ESP_LOGI(TAG, "ES8311 speaker output ready; PA on GPIO %d",
              SPARKY_AUDIO_PA_CTRL_GPIO);
+
+    /* Keep the NS4150B off until real playback so the speaker stays quiet. */
+    gpio_set_level(SPARKY_AUDIO_PA_CTRL_GPIO, 0);
     return ESP_OK;
+}
+
+esp_err_t sparky_audio_pa_enable(bool enable)
+{
+    return gpio_set_level(SPARKY_AUDIO_PA_CTRL_GPIO, enable ? 1 : 0);
 }
 
 esp_err_t sparky_audio_play_pcm(const int16_t *samples, size_t frame_count)
