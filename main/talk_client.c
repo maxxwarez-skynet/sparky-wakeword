@@ -406,7 +406,7 @@ static void talk_task(void *arg)
         .event_handler = NULL,
 
         .crt_bundle_attach = esp_crt_bundle_attach,
-        .timeout_ms = 20000,
+        .timeout_ms = 60000,
     };
 
     esp_http_client_handle_t client =
