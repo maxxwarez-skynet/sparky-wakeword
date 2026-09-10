@@ -5,6 +5,7 @@ idf_component_register(
         "touch.c"
         "audio.c"
         "i2c_bus.c"
+        "afe.c"
 
     INCLUDE_DIRS
         "."

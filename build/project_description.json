@@ -1,7 +1,7 @@
 {
     "version":            "1.3",
     "project_name":       "sparky-wakeword",
-    "project_version":    "21f5274-dirty",
+    "project_version":    "bacc4a2-dirty",
     "project_path":       "C:/esp/sparky-wakeword",
     "idf_path":           "C:/esp/v6.1/esp-idf",
     "build_dir":          "C:/esp/sparky-wakeword/build",
@@ -1450,7 +1450,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/esp/sparky-wakeword/build/esp-idf/esp_libc/libesp_libc.a",
-            "sources": [ "C:/esp/v6.1/esp-idf/components/esp_libc/src/init.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/assert.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/heap.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/locks.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/poll.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/pthread.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/random.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/getentropy.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/termios.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/stdatomic.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/time.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/timekeeping.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/sysconf.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/realpath.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/scandir.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/syscalls.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/reent_syscalls.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/port/esp_time_impl.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/picolibc_init.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/rand.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/open_memstream.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/errno.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/bufio_setvbuf.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/getreent.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/fopencookie.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/port/esp_time_impl.c" ],
+            "sources": [ "C:/esp/v6.1/esp-idf/components/esp_libc/src/init.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/assert.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/heap.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/locks.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/poll.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/pthread.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/random.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/getentropy.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/termios.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/stdatomic.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/time.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/timekeeping.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/sysconf.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/realpath.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/scandir.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/syscalls.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/reent_syscalls.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/port/esp_time_impl.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/port/xtensa/stdatomic_s32c1i.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/picolibc_init.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/rand.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/open_memstream.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/errno.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/bufio_setvbuf.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/getreent.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/picolibc/fopencookie.c", "C:/esp/v6.1/esp-idf/components/esp_libc/src/port/esp_time_impl.c" ],
             "include_dirs": [ "platform_include" ]
         },
         "esp_local_ctrl": {
@@ -1570,7 +1570,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/esp/sparky-wakeword/build/esp-idf/esp_psram/libesp_psram.a",
-            "sources": [ "C:/esp/v6.1/esp-idf/components/esp_psram/system_layer/esp_psram_mspi.c" ],
+            "sources": [ "C:/esp/v6.1/esp-idf/components/esp_psram/system_layer/esp_psram_mspi.c", "C:/esp/v6.1/esp-idf/components/esp_psram/system_layer/esp_psram.c", "C:/esp/v6.1/esp-idf/components/esp_psram/esp32s3/esp_psram_impl_octal.c", "C:/esp/v6.1/esp-idf/components/esp_psram/device", "C:/esp/v6.1/esp-idf/components/esp_psram/xip_impl/mmu_psram_flash.c" ],
             "include_dirs": [ "include", "device/include", "xip_impl/include" ]
         },
         "esp_ringbuf": {
@@ -1960,7 +1960,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp-sr" ],
             "file": "C:/esp/sparky-wakeword/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/esp/sparky-wakeword/main/sparky-wakeword.c", "C:/esp/sparky-wakeword/main/display.c", "C:/esp/sparky-wakeword/main/touch.c", "C:/esp/sparky-wakeword/main/audio.c", "C:/esp/sparky-wakeword/main/i2c_bus.c" ],
+            "sources": [ "C:/esp/sparky-wakeword/main/sparky-wakeword.c", "C:/esp/sparky-wakeword/main/display.c", "C:/esp/sparky-wakeword/main/touch.c", "C:/esp/sparky-wakeword/main/audio.c", "C:/esp/sparky-wakeword/main/i2c_bus.c", "C:/esp/sparky-wakeword/main/afe.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {

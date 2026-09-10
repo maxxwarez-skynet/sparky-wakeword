@@ -4,10 +4,14 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include <stdint.h>
+
 #include "display.h"
 #include "touch.h"
 
 #include "audio.h"
+
+#include "afe.h"
 
 static const char *TAG = "SPARKY";
 
@@ -42,9 +46,22 @@ void app_main(void)
         sparky_display_test()
     );
 
+
+    /*
+     * Initialize audio input.
+     */
     ESP_ERROR_CHECK(
         sparky_audio_init()
     );
+
+
+    /*
+     * Initialize ESP-SR AFE.
+     */
+    ESP_ERROR_CHECK(
+        sparky_afe_init()
+    );
+
 
     ESP_LOGI(
         TAG,
@@ -67,6 +84,19 @@ void app_main(void)
     );
 
 
+    /*
+     * ESP-SR currently reports:
+     *
+     *   Feed chunk    = 1024 samples/channel
+     *   Feed channels = 2
+     *
+     * Therefore one complete feed buffer is:
+     *
+     *   1024 * 2 = 2048 int16_t samples
+     */
+    int16_t afe_samples[2048];
+
+
     uint16_t x = 0;
     uint16_t y = 0;
 
@@ -74,63 +104,132 @@ void app_main(void)
     bool previous_pressed = false;
 
 
-   while (1) {
-
-    esp_err_t ret = sparky_touch_read(
-        &x,
-        &y,
-        &pressed
-    );
-
-
-    if (ret != ESP_OK) {
-
-        ESP_LOGE(
-            TAG,
-            "Touch read failed: %s",
-            esp_err_to_name(ret)
-        );
-
-    } else {
+    while (1) {
 
         /*
-         * Print only on state changes or
-         * while a finger is actively moving.
+         * ----------------------------------------------------
+         * Touch
+         * ----------------------------------------------------
          */
-        if (pressed) {
 
-            ESP_LOGI(
+        esp_err_t ret = sparky_touch_read(
+            &x,
+            &y,
+            &pressed
+        );
+
+
+        if (ret != ESP_OK) {
+
+            ESP_LOGE(
                 TAG,
-                "TOUCH: x=%u y=%u",
-                x,
-                y
+                "Touch read failed: %s",
+                esp_err_to_name(ret)
             );
 
-            sparky_display_touch_marker(x, y);
+        } else {
 
-        } else if (previous_pressed) {
+            /*
+             * Print only on state changes or
+             * while a finger is actively moving.
+             */
+            if (pressed) {
 
-            ESP_LOGI(
-                TAG,
-                "TOUCH: RELEASE"
-            );
+                ESP_LOGI(
+                    TAG,
+                    "TOUCH: x=%u y=%u",
+                    x,
+                    y
+                );
+
+                sparky_display_touch_marker(
+                    x,
+                    y
+                );
+
+            } else if (previous_pressed) {
+
+                ESP_LOGI(
+                    TAG,
+                    "TOUCH: RELEASE"
+                );
+            }
         }
+
+
+        previous_pressed = pressed;
+
+
+        /*
+         * ----------------------------------------------------
+         * Audio -> ESP-SR AFE
+         * ----------------------------------------------------
+         *
+         * Read one complete AFE input frame from I2S.
+         */
+        ret = sparky_audio_read(
+            afe_samples,
+            2048
+        );
+
+
+        if (ret != ESP_OK) {
+
+            ESP_LOGE(
+                TAG,
+                "Audio read failed: %s",
+                esp_err_to_name(ret)
+            );
+
+        } else {
+
+            /*
+             * Feed the microphone samples into ESP-SR.
+             */
+            ret = sparky_afe_feed(
+                afe_samples,
+                2048
+            );
+
+
+            if (ret != ESP_OK) {
+
+                ESP_LOGE(
+                    TAG,
+                    "AFE feed failed: %s",
+                    esp_err_to_name(ret)
+                );
+            }
+                        else {
+
+                ret = sparky_afe_fetch();
+                vTaskDelay(pdMS_TO_TICKS(10));
+
+                if (ret != ESP_OK) {
+
+                    ESP_LOGE(
+                        TAG,
+                        "AFE fetch failed: %s",
+                        esp_err_to_name(ret)
+                    );
+                }
+            }
+        }
+
+
+        /*
+         * No audio test here anymore.
+         *
+         * The audio is now being consumed by
+         * the ESP-SR AFE instead.
+         */
+
+
+        /*
+         * 50 ms polling interval.
+         */
+        // vTaskDelay(
+        //     pdMS_TO_TICKS(50)
+        // );
     }
-
-    previous_pressed = pressed;
-
-
-    /*
-     * Audio test.
-     */
-    sparky_audio_test();
-
-
-    /*
-     * 50 ms polling interval.
-     */
-    vTaskDelay(
-        pdMS_TO_TICKS(50)
-    );
-}
 }

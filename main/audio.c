@@ -733,3 +733,55 @@ esp_err_t sparky_audio_test(void)
 
     return ESP_OK;
 }
+
+
+/* ============================================================
+ * Audio read
+ * ============================================================ */
+
+esp_err_t sparky_audio_read(
+    int16_t *samples,
+    size_t sample_count
+)
+{
+    if (s_rx_chan == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (samples == NULL || sample_count == 0) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    size_t bytes_read = 0;
+
+    esp_err_t ret = i2s_channel_read(
+        s_rx_chan,
+        samples,
+        sample_count * sizeof(int16_t),
+        &bytes_read,
+        1000
+    );
+
+    if (ret != ESP_OK) {
+        ESP_LOGE(
+            TAG,
+            "I2S read failed: %s",
+            esp_err_to_name(ret)
+        );
+
+        return ret;
+    }
+
+    if (bytes_read != sample_count * sizeof(int16_t)) {
+        ESP_LOGW(
+            TAG,
+            "I2S short read: %u / %u bytes",
+            (unsigned)bytes_read,
+            (unsigned)(sample_count * sizeof(int16_t))
+        );
+
+        return ESP_ERR_INVALID_SIZE;
+    }
+
+    return ESP_OK;
+}

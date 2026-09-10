@@ -557,6 +557,18 @@ C:/esp/sparky-wakeword/build/esp-idf/esp_psram/CMakeFiles/list_install_component
 C:/esp/sparky-wakeword/build/esp-idf/esp_psram/CMakeFiles/install.dir
 C:/esp/sparky-wakeword/build/esp-idf/esp_psram/CMakeFiles/install/local.dir
 C:/esp/sparky-wakeword/build/esp-idf/esp_psram/CMakeFiles/install/strip.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/edit_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/rebuild_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/list_install_components.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/install.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/install/local.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/device/CMakeFiles/install/strip.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/edit_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/rebuild_cache.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/list_install_components.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/install.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/install/local.dir
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/xip_impl/CMakeFiles/install/strip.dir
 C:/esp/sparky-wakeword/build/esp-idf/esp_driver_uart/CMakeFiles/__idf_esp_driver_uart.dir
 C:/esp/sparky-wakeword/build/esp-idf/esp_driver_uart/CMakeFiles/edit_cache.dir
 C:/esp/sparky-wakeword/build/esp-idf/esp_driver_uart/CMakeFiles/rebuild_cache.dir
@@ -1214,6 +1226,7 @@ C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dsp/CMakeFiles/install.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dsp/CMakeFiles/install/local.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-dsp/CMakeFiles/install/strip.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/__idf_espressif__esp-sr.dir
+C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/srmodels_bin.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/edit_cache.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/rebuild_cache.dir
 C:/esp/sparky-wakeword/build/esp-idf/espressif__esp-sr/CMakeFiles/list_install_components.dir

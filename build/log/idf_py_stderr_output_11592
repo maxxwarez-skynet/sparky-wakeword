@@ -1,0 +1,85 @@
+Command: C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:\esp\v6.1\esp-idf\tools/idf_monitor.py -p COM6 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 C:\esp\sparky-wakeword\build\sparky-wakeword.elf C:\esp\sparky-wakeword\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe' 'C:\esp\v6.1\esp-idf\tools\idf.py' '-p' 'COM6'
+--- WARNING: GDB cannot open serial ports accessed as COMx
+--- NOTE: Using \\.\COM6 instead...
+--- esp-idf-monitor 1.10.0 on \\.\COM6 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+--- 0x400451e4: ets_sha_update in ROM
+--- 0x403c8700: _stext at ??:?
+--- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x40381ee5: panic_abort at C:/esp/v6.1/esp-idf/components/esp_system/panic.c:500
+--- 0x40381ead: esp_system_abort at C:/esp/v6.1/esp-idf/components/esp_system/port/esp_system_chip.c:87
+--- 0x40380bc9: abort at C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c:38
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x4037594b: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:1007
+--- 0x403ccd63: set_cache_and_start_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:1153(inlined by) unpack_load_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:888(inlined by) load_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:798
+--- 0x403cd10d: bootloader_utility_load_boot_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:600
+--- 0x403c8970: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:64
+--- 0x40045c01: ets_run_flash_bootloader in ROM
+--- 0x40043ab6: main in ROM
+--- 0x40034c45: .stack_ok in ROM
+--- 0x403820b5: esp_restart_noos at C:/esp/v6.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:171
+--- 0x403c8700: _stext at ??:?
+--- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x40381ee5: panic_abort at C:/esp/v6.1/esp-idf/components/esp_system/panic.c:500
+--- 0x40381ead: esp_system_abort at C:/esp/v6.1/esp-idf/components/esp_system/port/esp_system_chip.c:87
+--- 0x40380bc9: abort at C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c:38
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x4037594b: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:1007
+--- 0x403ccd63: set_cache_and_start_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:1153(inlined by) unpack_load_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:888(inlined by) load_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:798
+--- 0x403cd10d: bootloader_utility_load_boot_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:600
+--- 0x403c8970: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:64
+--- 0x40045c01: ets_run_flash_bootloader in ROM
+--- 0x40043ab6: main in ROM
+--- 0x40034c45: .stack_ok in ROM
+--- 0x403820b5: esp_restart_noos at C:/esp/v6.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:171
+--- 0x403c8700: _stext at ??:?
+--- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x40381ee5: panic_abort at C:/esp/v6.1/esp-idf/components/esp_system/panic.c:500
+--- 0x40381ead: esp_system_abort at C:/esp/v6.1/esp-idf/components/esp_system/port/esp_system_chip.c:87
+--- 0x40380bc9: abort at C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c:38
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x4037594b: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:1007
+--- 0x403ccd63: set_cache_and_start_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:1153(inlined by) unpack_load_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:888(inlined by) load_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:798
+--- 0x403cd10d: bootloader_utility_load_boot_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:600
+--- 0x403c8970: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:64
+--- 0x40045c01: ets_run_flash_bootloader in ROM
+--- 0x40043ab6: main in ROM
+--- 0x40034c45: .stack_ok in ROM
+--- 0x403820b5: esp_restart_noos at C:/esp/v6.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:171
+--- NOTE: IDF Monitor will decode all received data and close. If you want to stop the monitor immediately, press exit key again.
+--- 0x403c8700: _stext at ??:?
+--- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x40381ee5: panic_abort at C:/esp/v6.1/esp-idf/components/esp_system/panic.c:500
+--- 0x40381ead: esp_system_abort at C:/esp/v6.1/esp-idf/components/esp_system/port/esp_system_chip.c:87
+--- 0x40380bc9: abort at C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c:38
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x4037594b: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:1007
+--- 0x403ccd63: set_cache_and_start_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:1153(inlined by) unpack_load_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:888(inlined by) load_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:798
+--- 0x403cd10d: bootloader_utility_load_boot_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:600
+--- 0x403c8970: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:64
+--- 0x40045c01: ets_run_flash_bootloader in ROM
+--- 0x40043ab6: main in ROM
+--- 0x40034c45: .stack_ok in ROM
+--- 0x403820b5: esp_restart_noos at C:/esp/v6.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:171
+--- 0x403c8700: _stext at ??:?
+--- 0x403c8904: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:27
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x40381ee5: panic_abort at C:/esp/v6.1/esp-idf/components/esp_system/panic.c:500
+--- 0x40381ead: esp_system_abort at C:/esp/v6.1/esp-idf/components/esp_system/port/esp_system_chip.c:87
+--- 0x40380bc9: abort at C:/esp/v6.1/esp-idf/components/esp_libc/src/abort.c:38
+--- 0x42003ea3: mspi_init at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:653
+--- 0x4037594b: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/esp_system/port/cpu_start.c:1007
+--- 0x403ccd63: set_cache_and_start_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:1153(inlined by) unpack_load_app at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:888(inlined by) load_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:798
+--- 0x403cd10d: bootloader_utility_load_boot_image at C:/esp/v6.1/esp-idf/components/bootloader_support/src/bootloader_utility.c:600
+--- 0x403c8970: call_start_cpu0 at C:/esp/v6.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c:64
+--- 0x40045c01: ets_run_flash_bootloader in ROM
+--- 0x40043ab6: main in ROM
+--- 0x40034c45: .stack_ok in ROM
+--- 0x403820b5: esp_restart_noos at C:/esp/v6.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:171
+--- 0x403c8700: _stext at ??:?
+--- Multiple stop commands received, forcing quit monitor
+

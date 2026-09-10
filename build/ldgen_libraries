@@ -47,12 +47,12 @@ C:/esp/sparky-wakeword/build/esp-idf/nvs_sec_provider/libnvs_sec_provider.a
 C:/esp/sparky-wakeword/build/esp-idf/mbedtls/libmbedtls.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_security/libesp_security.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_driver_dma/libesp_driver_dma.a
+C:/esp/sparky-wakeword/build/esp-idf/esp_psram/libesp_psram.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_mm/libesp_mm.a
 C:/esp/sparky-wakeword/build/esp-idf/efuse/libefuse.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_hal_wdt/libesp_hal_wdt.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_hal_ana_conv/libesp_hal_ana_conv.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_ringbuf/libesp_ringbuf.a
-C:/esp/sparky-wakeword/build/esp-idf/esp_psram/libesp_psram.a
 C:/esp/sparky-wakeword/build/esp-idf/vfs/libvfs.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_driver_usb_serial_jtag/libesp_driver_usb_serial_jtag.a
 C:/esp/sparky-wakeword/build/esp-idf/esp_hal_usb/libesp_hal_usb.a

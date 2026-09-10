@@ -1,0 +1,23 @@
+Command: ninja all
+[1/6] Move and Pack models...
+FAILED: srmodels/srmodels.bin C:/esp/sparky-wakeword/build/srmodels/srmodels.bin 
+C:\WINDOWS\system32\cmd.exe /C "cd /D C:\esp\sparky-wakeword\build\esp-idf\espressif__esp-sr && python C:/esp/sparky-wakeword/managed_components/espressif__esp-sr/model/movemodel.py -d1 C:/esp/sparky-wakeword/sdkconfig -d2 C:/esp/sparky-wakeword/managed_components/espressif__esp-sr -d3 C:/esp/sparky-wakeword/build"
+
+ESP-SR Models Report
+Traceback (most recent call last):
+  File "C:\esp\sparky-wakeword\managed_components\espressif__esp-sr\model\movemodel.py", line 240, in <module>
+    print('\u2500' * 40)
+  File "C:\Espressif\tools\python\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-39: character maps to <undefined>
+[2/6] Performing build step for 'bootloader'
+[1/1] C:\WINDOWS\system32\cmd.exe /C "cd /D C:\esp\sparky-wakeword\build\bootloader && C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:/esp/v6.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 C:/esp/sparky-wakeword/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5280 bytes. 0x2d80 bytes (36%) free.
+[3/6] Generating binary image from built executable
+esptool v5.4.0
+Creating ESP32-S3 image...
+Merged 3 ELF sections.
+Successfully created ESP32-S3 image.
+Generated C:/esp/sparky-wakeword/build/sparky-wakeword.bin
+ninja: build stopped: subcommand failed.

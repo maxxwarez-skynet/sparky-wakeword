@@ -1,0 +1,68 @@
+Command: ninja flash
+[1/5] C:\WINDOWS\system32\cmd.exe /C "cd /D C:\esp\sparky-wakeword\build && C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:/esp/v6.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/esp/sparky-wakeword/build/partition_table/partition-table.bin C:/esp/sparky-wakeword/build/sparky-wakeword.bin"
+sparky-wakeword.bin binary size 0x1afa80 bytes. Smallest app partition is 0x200000 bytes. 0x50580 bytes (16%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] C:\WINDOWS\system32\cmd.exe /C "cd /D C:\esp\sparky-wakeword\build\bootloader && C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:/esp/v6.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 C:/esp/sparky-wakeword/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5280 bytes. 0x2d80 bytes (36%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] Running utility command for flash
+esptool --chip esp32s3 -p COM6 -b 460800 --before=default-reset --after=hard-reset write-flash --flash-mode dio --flash-freq 80m --flash-size 16MB 0x0 bootloader/bootloader.bin 0x8000 partition_table/partition-table.bin 0x210000 srmodels/srmodels.bin 0x10000 sparky-wakeword.bin --diff-with bootloader/bootloader_flashed.bin partition_table/partition-table_flashed.bin skip sparky-wakeword_flashed.bin
+esptool v5.4.0
+Serial port COM6:
+Connecting...
+Connected to ESP32-S3 on COM6:
+Chip type:          ESP32-S3 (QFN56) (revision v0.2)
+Features:           Wi-Fi, BT 5 (LE), Dual Core + LP Core, 240MHz, Embedded PSRAM 8MB (AP_3v3)
+Crystal frequency:  40MHz
+USB mode:           USB-Serial/JTAG
+MAC:                28:84:85:8d:33:d0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+Changing baud rate to 460800...
+Changed.
+
+Configuring flash size...
+
+Writing 'bootloader/bootloader.bin' at 0x00000000...
+SHA digest in image updated.
+SHA digest in image updated.
+Changed data sectors found, fast reflashing...
+Reflashing 1 changed sector at 0x00000000...
+Flash will be erased from 0x00000000 to 0x00000fff...
+Compressed 4096 bytes to 1544...
+Writing at 0x00001000 ------------------------------ 100.0% 1.51kB/1.51kB [0s] 
+Wrote 4096 bytes (1544 compressed) at 0x00000000 in 0.0 seconds (1266.9 kbit/s).
+Reflashing 1 changed sector at 0x00005000...
+Flash will be erased from 0x00005000 to 0x00005fff...
+Compressed 4096 bytes to 497...
+Writing at 0x00006000 ------------------------------ 100.0% 497B/497B [0s] 
+Wrote 4096 bytes (497 compressed) at 0x00005000 in 0.0 seconds (1472.0 kbit/s).
+Verifying written data...
+Hash of data verified.
+
+Writing 'partition_table/partition-table.bin' at 0x00008000...
+No changed sectors found, verifying if data is in flash...
+'partition_table/partition-table.bin' at 0x00008000 verified.
+
+Writing 'srmodels/srmodels.bin' at 0x00210000...
+Flash will be erased from 0x00210000 to 0x00257fff...
+Compressed 291068 bytes to 222354...
+Writing at 0x002149fe -- ---------------------------   7.4% 16.00kB/217.14kB [0s] Writing at 0x0021a855 ---- -------------------------  14.7% 32.00kB/217.14kB [0s] Writing at 0x0021f764 ------ -----------------------  22.1% 48.00kB/217.14kB [0s] Writing at 0x00223fe1 -------- ---------------------  29.5% 64.00kB/217.14kB [1s] Writing at 0x0022942f ----------- ------------------  36.8% 80.00kB/217.14kB [1s] Writing at 0x0022f009 ------------- ----------------  44.2% 96.00kB/217.14kB [1s] Writing at 0x002346d4 --------------- --------------  51.6% 112.00kB/217.14kB [1s] Writing at 0x00239d78 ----------------- ------------  58.9% 128.00kB/217.14kB [1s] Writing at 0x0023f3a7 ------------------- ----------  66.3% 144.00kB/217.14kB [1s] Writing at 0x00244023 ---------------------- -------  73.7% 160.00kB/217.14kB [2s] Writing at 0x00248bbb ------------------------ -----  81.1% 176.00kB/217.14kB [2s] Writing at 0x0024de05 -------------------------- ---  88.4% 192.00kB/217.14kB [2s] Writing at 0x00254015 ---------------------------- -  95.8% 208.00kB/217.14kB [2s] Writing at 0x002570fc ------------------------------ 100.0% 217.14kB/217.14kB [2s] 
+Wrote 291068 bytes (222354 compressed) at 0x00210000 in 2.8 seconds (819.0 kbit/s).
+Verifying written data...
+Hash of data verified.
+
+Writing 'sparky-wakeword.bin' at 0x00010000...
+Changed data sectors found, fast reflashing...
+Reflashing 432 changed sectors at 0x00010000...
+Flash will be erased from 0x00010000 to 0x001bffff...
+Compressed 1769472 bytes to 704410...
+Writing at 0x0001d19f  -----------------------------   2.3% 16.00kB/687.90kB [0s] Writing at 0x0002a688 - ----------------------------   4.7% 32.00kB/687.90kB [0s] Writing at 0x00031321 -- ---------------------------   7.0% 48.00kB/687.90kB [0s] Writing at 0x0003dad3 -- ---------------------------   9.3% 64.00kB/687.90kB [0s] Writing at 0x00049392 --- --------------------------  11.6% 80.00kB/687.90kB [1s] Writing at 0x0004efee ---- -------------------------  14.0% 96.00kB/687.90kB [1s] Writing at 0x00054df6 ---- -------------------------  16.3% 112.00kB/687.90kB [1s] Writing at 0x0005af5e ----- ------------------------  18.6% 128.00kB/687.90kB [1s] Writing at 0x000611d5 ------ -----------------------  20.9% 144.00kB/687.90kB [2s] Writing at 0x00067429 ------ -----------------------  23.3% 160.00kB/687.90kB [2s] Writing at 0x0006c4ae ------- ----------------------  25.6% 176.00kB/687.90kB [2s] Writing at 0x00072c0c -------- ---------------------  27.9% 192.00kB/687.90kB [2s] Writing at 0x0007819c --------- --------------------  30.2% 208.00kB/687.90kB [2s] Writing at 0x0007eea5 --------- --------------------  32.6% 224.00kB/687.90kB [3s] Writing at 0x00084d48 ---------- -------------------  34.9% 240.00kB/687.90kB [3s] Writing at 0x000a0ea1 ----------- ------------------  37.2% 256.00kB/687.90kB [3s] Writing at 0x000ab684 ----------- ------------------  39.5% 272.00kB/687.90kB [4s] Writing at 0x000b4790 ------------ -----------------  41.9% 288.00kB/687.90kB [4s] Writing at 0x000bd33a ------------- ----------------  44.2% 304.00kB/687.90kB [4s] Writing at 0x000c524e ------------- ----------------  46.5% 320.00kB/687.90kB [4s] Writing at 0x000cc04b -------------- ---------------  48.8% 336.00kB/687.90kB [4s] Writing at 0x000d23f9 --------------- --------------  51.2% 352.00kB/687.90kB [5s] Writing at 0x000d8262 ---------------- -------------  53.5% 368.00kB/687.90kB [5s] Writing at 0x000e07f2 ---------------- -------------  55.8% 384.00kB/687.90kB [5s] Writing at 0x000e8374 ----------------- ------------  58.1% 400.00kB/687.90kB [5s] Writing at 0x000f1323 ------------------ -----------  60.5% 416.00kB/687.90kB [5s] Writing at 0x000f7326 ------------------ -----------  62.8% 432.00kB/687.90kB [5s] Writing at 0x000fda70 ------------------- ----------  65.1% 448.00kB/687.90kB [6s] Writing at 0x0010774f -------------------- ---------  67.5% 464.00kB/687.90kB [6s] Writing at 0x0010e18f -------------------- ---------  69.8% 480.00kB/687.90kB [6s] Writing at 0x0012f309 --------------------- --------  72.1% 496.00kB/687.90kB [6s] Writing at 0x00135f2e ---------------------- -------  74.4% 512.00kB/687.90kB [6s] Writing at 0x0013bdb0 ----------------------- ------  76.8% 528.00kB/687.90kB [7s] Writing at 0x001411cc ----------------------- ------  79.1% 544.00kB/687.90kB [7s] Writing at 0x00146cd6 ------------------------ -----  81.4% 560.00kB/687.90kB [7s] Writing at 0x0014c364 ------------------------- ----  83.7% 576.00kB/687.90kB [7s] Writing at 0x00154e81 ------------------------- ----  86.1% 592.00kB/687.90kB [7s] Writing at 0x0018094c -------------------------- ---  88.4% 608.00kB/687.90kB [7s] Writing at 0x001a36b5 --------------------------- --  90.7% 624.00kB/687.90kB [8s] Writing at 0x001ab9ad --------------------------- --  93.0% 640.00kB/687.90kB [8s] Writing at 0x001b1a45 ---------------------------- -  95.4% 656.00kB/687.90kB [9s] Writing at 0x001b975e -----------------------------   97.7% 672.00kB/687.90kB [9s] Writing at 0x001c0000 ------------------------------ 100.0% 687.90kB/687.90kB [9s] 
+Wrote 1769472 bytes (704410 compressed) at 0x00010000 in 9.4 seconds (1504.4 kbit/s).
+Verifying written data...
+Hash of data verified.
+
+Hard resetting via RTS pin...
