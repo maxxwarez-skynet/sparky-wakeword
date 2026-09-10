@@ -243,6 +243,57 @@ esp_err_t sparky_display_test(void)
     return ESP_OK;
 }
 
+/*
+ * Wake-word diagnostic state: fill the LCD red.  This is intentionally a
+ * simple, one-shot visual indication rather than the final Sparky UI.
+ */
+esp_err_t sparky_display_awake(void)
+{
+    if (s_panel == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    /* RGB565 bright red = 0xF800. Draw in 50-line DMA-sized strips. */
+    const uint8_t color_hi = 0xF8;
+    const uint8_t color_lo = 0x00;
+    const size_t rows_per_strip = 50;
+    const size_t buffer_size =
+        SPARKY_LCD_H_RES * rows_per_strip * sizeof(uint16_t);
+
+    uint8_t *buffer = heap_caps_malloc(buffer_size, MALLOC_CAP_DMA);
+    if (buffer == NULL) {
+        return ESP_ERR_NO_MEM;
+    }
+
+    for (size_t i = 0; i < buffer_size; i += 2) {
+        buffer[i] = color_hi;
+        buffer[i + 1] = color_lo;
+    }
+
+    for (int y = 0; y < SPARKY_LCD_V_RES; y += rows_per_strip) {
+        const int y_end = (y + rows_per_strip < SPARKY_LCD_V_RES) ?
+                          y + rows_per_strip : SPARKY_LCD_V_RES;
+
+        esp_err_t ret = esp_lcd_panel_draw_bitmap(
+            s_panel,
+            0,
+            y,
+            SPARKY_LCD_H_RES,
+            y_end,
+            buffer
+        );
+
+        if (ret != ESP_OK) {
+            free(buffer);
+            return ret;
+        }
+    }
+
+    free(buffer);
+    ESP_LOGI(TAG, "LCD changed to AWAKE state");
+    return ESP_OK;
+}
+
 esp_err_t sparky_display_touch_marker(uint16_t x, uint16_t y)
 {
     if (s_panel == NULL) {
