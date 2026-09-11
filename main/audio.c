@@ -748,7 +748,7 @@ esp_err_t sparky_audio_output_init(void)
         return ESP_FAIL;
     }
 
-    if (esp_codec_dev_set_out_vol(s_es8311, 75) != ESP_CODEC_DEV_OK) {
+    if (esp_codec_dev_set_out_vol(s_es8311, 100) != ESP_CODEC_DEV_OK) {
         ESP_LOGE(TAG, "Failed to set ES8311 volume");
         return ESP_FAIL;
     }
